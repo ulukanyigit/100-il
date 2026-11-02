@@ -79,6 +79,15 @@
   }
 
   // ---------- harita ----------
+  const TR_BOUNDS = [[25.6, 35.8], [44.9, 42.15]];
+  const mq = matchMedia("(max-width: 900px)");
+  function isMobile() { return mq.matches; }
+  function fitPadding() {
+    const W = innerWidth;
+    if (isMobile()) return { top: 104, bottom: 150, left: 8, right: 8 };
+    const rail = W > 1180 ? 252 : 220, ctrl = W > 1180 ? 344 : 316;
+    return { top: 30, bottom: 80, left: ctrl + 40, right: rail + 40 };
+  }
   const geo = topojson.feature(topo, topo.objects.ilce);
   geo.features.forEach((f) => { f.id = f.properties.i; });
   const oldBorders = topojson.mesh(topo, topo.objects.ilce, (a, b) => a === b || I.il[a.properties.i] !== I.il[b.properties.i]);
@@ -87,14 +96,16 @@
   const map = new maplibregl.Map({
     container: "map",
     style: { version: 8, sources: {}, layers: [{ id: "bg", type: "background", paint: { "background-color": css("--sea") } }] },
-    bounds: [[25.6, 35.8], [44.9, 42.15]],
-    fitBoundsOptions: { padding: 24 },
+    bounds: TR_BOUNDS,
+    fitBoundsOptions: { padding: fitPadding() },
     minZoom: 3, maxZoom: 10,
     attributionControl: false,
     dragRotate: false, pitchWithRotate: false, touchPitch: false,
   });
-  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
-  map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "Sınırlar: geoBoundaries · Yol: OSRM/OSM · Nüfus: TÜİK 2025" }));
+  if (!isMobile()) map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
+  map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "Sınırlar: geoBoundaries, Yol: OSRM/OSM, Nüfus: TÜİK 2025" }), isMobile() ? "top-right" : "bottom-right");
+  let rz = 0;
+  addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { map.fitBounds(TR_BOUNDS, { padding: fitPadding(), duration: 0 }); declutter(); }, 150); });
   await new Promise((r) => map.on("load", r));
 
   map.addSource("ilce", { type: "geojson", data: geo, promoteId: "i" });
@@ -202,7 +213,8 @@
   function renderList() {
     const ol = $("#liste"); ol.innerHTML = "";
     const order = res.sel.slice().sort((a, b) => plateOf.get(a.id) - plateOf.get(b.id));
-    $("#secimSayisi").textContent = res.sel.length < state.n_new ? `${res.sel.length} / 19 (koşulları sağlayan aday kalmadı)` : "19 il";
+    $("#secimSayisi").textContent = res.sel.length < state.n_new ? `${res.sel.length}/19` : "19";
+    $("#secimSayisi").title = res.sel.length < state.n_new ? "Koşulları sağlayan aday kalmadı" : "";
     for (const s of order) {
       const r = sag.oran[s.id] || 0, li = document.createElement("li");
       li.innerHTML = `<button type="button" aria-current="${selected === s.id}">
@@ -215,6 +227,8 @@
       li.querySelector("button").addEventListener("click", () => openCard(s.id, false));
       ol.append(li);
     }
+    const cur = ol.querySelector('[aria-current="true"]');
+    if (cur) cur.scrollIntoView({ block: "nearest", inline: "nearest" });
   }
 
   // ---------- karşılaştırma ----------
@@ -237,6 +251,7 @@
     const hit = press.filter((i) => chosen.has(i)), miss = press.filter((i) => !chosen.has(i));
     const onlyModel = res.sel.filter((s) => !I.basin[s.id]).map((s) => s.id);
     const row = (i, cls, why) => `<tr class="${cls}"><td><button type="button" data-id="${i}">${I.ad[i]}</button></td><td class="why">${why}</td></tr>`;
+    $("#ortakSayi").textContent = `${hit.length}/19`; $("#ortakSayiM").textContent = `${hit.length}/19`;
     box.innerHTML = `<p class="tally">${hit.length} / 19<span>ilçe iki listede ortak</span></p>
       <table><tbody>
       ${hit.sort((a, b) => collator.compare(I.ad[a], I.ad[b])).map((i) => row(i, "hit", `modelde de seçildi, plaka ${plateOf.get(i)}`)).join("")}
@@ -244,7 +259,7 @@
       </tbody></table>
       <h3>Yalnızca modelin seçtikleri</h3>
       <p class="note">${onlyModel.sort((a, b) => collator.compare(I.ad[a], I.ad[b])).map((i) => `<button type="button" data-id="${i}">${I.ad[i]}</button>`).join(", ") || "Yok"}</p>`;
-    box.querySelectorAll("button[data-id]").forEach((b) => b.addEventListener("click", () => openCard(+b.dataset.id, false)));
+    box.querySelectorAll("button[data-id]").forEach((b) => b.addEventListener("click", () => { $("#dlgKarsilastirma").close(); openCard(+b.dataset.id, false); }));
   }
 
   // ---------- kart ----------
@@ -282,9 +297,31 @@
     }
     card.innerHTML = html; card.hidden = false;
     card.querySelector(".x").addEventListener("click", closeCard);
+    card.querySelector(".x").classList.add("icon-btn");
+    if (isMobile()) setSheet(false);
   }
   function closeCard() { $("#kart").hidden = true; selected = null; draw(); }
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#kart").hidden) closeCard(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || document.querySelector("dialog[open]")) return;
+    if (!$("#kart").hidden) closeCard(); else if (ctrl.classList.contains("open")) setSheet(false);
+  });
+
+  // ---------- pencereler, ayar paneli, mobil sekmeler ----------
+  document.querySelectorAll("[data-open]").forEach((b) => b.addEventListener("click", () => $("#" + b.dataset.open).showModal()));
+  document.querySelectorAll("dialog").forEach((d) => {
+    d.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", () => d.close()));
+    d.addEventListener("click", (e) => { if (e.target === d) d.close(); }); // arka plana tıklayınca kapan
+  });
+  const ctrl = $("#ayarlar"), tog = $("#ctrlToggle"), tab = $("#tabAyarlar");
+  function setSheet(open) { ctrl.classList.toggle("open", open); tab.setAttribute("aria-expanded", open); }
+  tog.addEventListener("click", () => {
+    if (isMobile()) { setSheet(false); tab.focus(); return; }
+    const c = ctrl.classList.toggle("collapsed");
+    tog.textContent = c ? "Göster" : "Gizle"; tog.setAttribute("aria-expanded", !c);
+  });
+  tab.addEventListener("click", () => { const o = !ctrl.classList.contains("open"); setSheet(o); if (o) { if (!$("#kart").hidden) closeCard(); ctrl.querySelector(".chip").focus(); } });
+  const syncTog = () => { tog.textContent = isMobile() ? "Kapat" : (ctrl.classList.contains("collapsed") ? "Göster" : "Gizle"); };
+  mq.addEventListener("change", syncTog); syncTog();
 
   // ---------- açılış: 81'den 100'e ----------
   compute();

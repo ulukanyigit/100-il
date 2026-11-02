@@ -2,12 +2,12 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>100 İl Haritası</title>
 <meta name="description" content="Türkiye 100 il olsaydı, veri hangi 19 ilçeyi seçerdi? TÜİK 2025 nüfusu, il merkezine yol süresi ve SEGE-2022 ile 973 ilçeyi tartan etkileşimli harita.">
 <meta property="og:title" content="100 İl Haritası: veri hangi 19 ilçeyi seçerdi?">
 <meta property="og:description" content="973 ilçe, 4 ölçüt, 1000 senaryo. Ağırlıkları değiştir, Türkiye haritası yeniden çizilsin.">
-<meta name="theme-color" content="#F0C020">
+<meta name="theme-color" content="#1040C0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -16,17 +16,22 @@
 </head>
 <body>
 <a class="skip" href="#ayarlar">Ayarlara geç</a>
-<div class="app">
-  <aside class="panel" id="panel">
-    <header class="poster">
-      <div class="geo" aria-hidden="true"><i class="g-circle"></i><i class="g-square"></i><i class="g-bar"></i></div>
-      <p class="count-big" aria-live="polite"><span id="ilSayisi">81</span><small>il</small></p>
-      <h1>Türkiye 100 il olsaydı, veri hangi ilçeleri seçerdi?</h1>
-    </header>
-    <p class="lead">“100 il, 1000 ilçe” önerisinde il olacak 19 ilçenin kesin listesi henüz açıklanmadı. Bu harita 973 ilçeyi nüfus, il merkezine uzaklık ve gelişmişlik verisiyle tartıyor ve 19 yeni ili kendisi seçiyor. Ağırlıkları değiştirdiğinde harita yeniden çizilir.</p>
+<div class="stage">
+  <div id="map" aria-label="Türkiye 100 il haritası"></div>
 
-    <section class="block" id="ayarlar">
-      <h2><i class="mk-shape s-circle" aria-hidden="true"></i>Neye önem verelim?</h2>
+  <header class="f-card f-title">
+    <div class="geo" aria-hidden="true"><i class="g-circle"></i><i class="g-square"></i></div>
+    <p class="count-big" aria-live="polite"><span id="ilSayisi">81</span><small>il</small></p>
+    <h1>Türkiye 100 il olsaydı, veri hangi ilçeleri seçerdi?</h1>
+    <p class="title-links"><button type="button" class="link" data-open="dlgHakkinda">Bu harita nedir?</button><button type="button" class="link" data-open="dlgYontem">Yöntem ve kaynaklar</button></p>
+  </header>
+
+  <section class="f-card f-ctrl" id="ayarlar" aria-labelledby="ctrlBaslik">
+    <div class="ctrl-head">
+      <h2 id="ctrlBaslik"><i class="mk-shape s-circle" aria-hidden="true"></i>Neye önem verelim?</h2>
+      <button type="button" class="icon-btn" id="ctrlToggle" aria-expanded="true" aria-controls="ctrlBody">Gizle</button>
+    </div>
+    <div class="ctrl-body" id="ctrlBody">
       <div class="chips" id="senaryolar" role="group" aria-label="Hazır senaryolar"></div>
       <div class="sliders" id="agirliklar"></div>
       <details class="rules">
@@ -34,60 +39,80 @@
         <div class="sliders" id="kurallar"></div>
         <p class="note">Kent çekirdeği: il merkezine bu mesafeden yakın ilçeler ile merkeze bitişik yoğun kent dokusu (Pendik, Esenyurt gibi) aday olamaz, ana ilde kalır.</p>
       </details>
-    </section>
+    </div>
+  </section>
 
-    <section class="block">
-      <div class="block-head">
-        <h2><i class="mk-shape s-square" aria-hidden="true"></i>Seçilen yeni iller</h2>
-        <span class="count" id="secimSayisi"></span>
-      </div>
-      <p class="note">Plaka kodları il adlarının alfabetik sırasına göre 82'den başlar. On kare, ilçenin 1000 rastgele ağırlık senaryosunun kaçında seçildiğini gösterir; her kare yüzde 10.</p>
-      <ol class="plates" id="liste"></ol>
-    </section>
-
-    <section class="block block-blue">
-      <div class="block-head">
-        <h2><i class="mk-shape s-tri" aria-hidden="true"></i>Basındaki listeyle karşılaştırma</h2>
-        <label class="toggle"><input type="checkbox" id="basinGoster" checked> Haritada göster</label>
-      </div>
-      <p class="note">Basında 19 ilçelik bir aday listesi yer aldı (<a href="https://www.gzt.com/gundem/turkiyede-19-ilce-il-mi-oluyor-hangi-ilceler-il-olacak-bahcelinin-100-il-1000-ilce-projesinin-ayrintilari-belli-oldu-4274809" target="_blank" rel="noopener">gzt.com, 2 Kasım 2026</a>). Resmî bir liste değil, karşılaştırma için kullanılıyor.</p>
-      <div class="compare" id="karsilastirma"></div>
-    </section>
-
-    <section class="block method">
-      <h2><i class="mk-shape s-circle s-blue" aria-hidden="true"></i>Yöntem</h2>
-      <ol class="steps">
-        <li><b>Kent çekirdeği.</b> İl merkezine yol mesafesi 30 km'den az olan ilçeler ve merkeze 20 dakikadan yakın, kilometrekarede 500 kişiden yoğun ilçeler ana ilde kalır.</li>
-        <li><b>Hinterland.</b> Bir aday il olursa, kendisine eski il merkezinden daha kısa sürede ulaşılan ilçeler ona bağlanır. Yeni il en az 150 bin kişiyi kapsamalı, geride kalan il 250 binin altına düşmemeli.</li>
-        <li><b>Puan.</b> Yeni ilin toplam nüfusu, ilçenin kendi nüfusu, il merkezine sürüş süresi ve SEGE-2022 gelişmişlik skoru 0–1 arasına ölçeklenip ağırlıklarla toplanır.</li>
-        <li><b>Seçim.</b> Her turda koşulları sağlayan en yüksek puanlı aday il olur, ilçeler en yakın merkeze yeniden dağıtılır. 19 il seçilene kadar sürer.</li>
-      </ol>
-      <p class="note">Model ilçeleri yalnızca kendi ili içinde dağıtır, il sınırı aşan birleşmeleri (ör. komşu ilden ilçe alma) değerlendirmez. Yol süreleri trafiksiz OSRM tahminidir. Bölgesel denge, güvenlik, tarih ve kimlik gibi ölçütler veriye girmez.</p>
-      <h3>Kaynaklar</h3>
-      <ul class="sources">
-        <li>Nüfus: TÜİK Adrese Dayalı Nüfus Kayıt Sistemi 2025</li>
-        <li>Gelişmişlik: Sanayi ve Teknoloji Bakanlığı, İlçelerin Sosyo-Ekonomik Gelişmişlik Sıralaması (SEGE-2022)</li>
-        <li>Sınırlar: geoBoundaries (CC BY 4.0)</li>
-        <li>Yol süreleri: OSRM, OpenStreetMap katkıcıları</li>
-      </ul>
-      <h3>Veri kontrolleri</h3>
-      <p class="note">973 ilçe merkezinin her biri kendi ilçe poligonunun içinde. Kaynak tabloda hatalı olan 10 koordinat (Yüksekova, Defne, Çaldıran gibi) düzeltildi. Yol tablosunda yoldan 2 km'den uzağa oturan noktalar ve fiziksel olarak imkânsız çiftler (yol mesafesi kuş uçuşundan kısa ya da ortalama hız saatte 25 km'nin altında) tek tek rota sorgusuyla yeniden hesaplandı. Toplam nüfus TÜİK'in açıkladığı 86.092.168 ile 9 kişi farkla örtüşüyor.</p>
-      <p class="sign">Hazırlayan: Hamza Yiğit Ulukan, Harita Mühendisi. Kaynak kod: <a href="https://github.com/ulukanyigit/100-il" target="_blank" rel="noopener">github.com/ulukanyigit/100-il</a></p>
-    </section>
+  <aside class="f-card f-rail" aria-labelledby="railBaslik">
+    <div class="rail-head">
+      <h2 id="railBaslik"><i class="mk-shape s-square" aria-hidden="true"></i>Yeni iller</h2>
+      <span class="count" id="secimSayisi"></span>
+    </div>
+    <ol class="plates" id="liste"></ol>
+    <p class="rail-note">Kareler: 1000 rastgele ağırlık senaryosunun kaçında seçildiği (her kare %10).</p>
   </aside>
 
-  <main class="map-wrap">
-    <div id="map" aria-label="Türkiye 100 il haritası"></div>
+  <div class="dock">
     <div class="legend" id="lejant">
       <span><i class="sw sw-new"></i>Yeni il</span>
       <span><i class="sw sw-old"></i>Mevcut il</span>
-      <span><i class="sw sw-line"></i>Yeni çizilen sınır</span>
+      <span><i class="sw sw-line"></i>Yeni sınır</span>
       <span class="lg-press"><i class="sw sw-press"></i>Basın listesi</span>
     </div>
-    <div class="card" id="kart" hidden></div>
-    <div class="loading" id="yukleniyor">Harita yükleniyor</div>
-  </main>
+    <button type="button" class="pill" data-open="dlgKarsilastirma"><i class="mk-shape s-tri" aria-hidden="true"></i>Basın listesiyle <b id="ortakSayi">–</b> ortak</button>
+  </div>
+
+  <div class="card" id="kart" hidden role="dialog" aria-label="İlçe ayrıntısı"></div>
+  <div class="loading" id="yukleniyor"><span>Harita yükleniyor</span></div>
+
+  <nav class="tabbar" aria-label="Mobil menü">
+    <button type="button" id="tabAyarlar" aria-expanded="false" aria-controls="ayarlar"><i class="mk-shape s-circle" aria-hidden="true"></i>Ayarlar</button>
+    <button type="button" data-open="dlgKarsilastirma"><i class="mk-shape s-tri" aria-hidden="true"></i>Basın <b id="ortakSayiM">–</b></button>
+    <button type="button" data-open="dlgYontem"><i class="mk-shape s-square" aria-hidden="true"></i>Yöntem</button>
+  </nav>
 </div>
+
+<dialog id="dlgKarsilastirma" class="dlg dlg-blue" aria-labelledby="kBaslik">
+  <div class="dlg-head">
+    <h2 id="kBaslik"><i class="mk-shape s-tri" aria-hidden="true"></i>Basındaki listeyle karşılaştırma</h2>
+    <button type="button" class="icon-btn x" data-close aria-label="Kapat">×</button>
+  </div>
+  <p class="note">Basında 19 ilçelik bir aday listesi yer aldı (<a href="https://www.gzt.com/gundem/turkiyede-19-ilce-il-mi-oluyor-hangi-ilceler-il-olacak-bahcelinin-100-il-1000-ilce-projesinin-ayrintilari-belli-oldu-4274809" target="_blank" rel="noopener">gzt.com, 2 Kasım 2026</a>). Resmî bir liste değil, karşılaştırma için kullanılıyor.</p>
+  <label class="toggle"><input type="checkbox" id="basinGoster" checked> Basın listesini haritada sarı dairelerle göster</label>
+  <div class="compare" id="karsilastirma"></div>
+</dialog>
+
+<dialog id="dlgHakkinda" class="dlg" aria-labelledby="hBaslik">
+  <div class="dlg-head">
+    <h2 id="hBaslik"><i class="mk-shape s-circle" aria-hidden="true"></i>Bu harita nedir?</h2>
+    <button type="button" class="icon-btn x" data-close aria-label="Kapat">×</button>
+  </div>
+  <p>“100 il, 1000 ilçe” önerisinde il olacak 19 ilçenin kesin listesi henüz açıklanmadı. Bu harita 973 ilçeyi nüfus, il merkezine uzaklık ve gelişmişlik verisiyle tartıyor ve 19 yeni ili kendisi seçiyor.</p>
+  <p>Sol alttaki ağırlıkları değiştirdiğinde model tarayıcında yeniden çalışır, yeni iller ve sınırları anında yeniden çizilir. Bir ilçeye ya da plakaya tıklayınca neden il olduğunu ya da olmadığını görürsün. Ayarların adres satırına yazılır; linki paylaşan kişi aynı haritayı görür.</p>
+  <p class="sign">Hazırlayan: Hamza Yiğit Ulukan, Harita Mühendisi. Kaynak kod: <a href="https://github.com/ulukanyigit/100-il" target="_blank" rel="noopener">github.com/ulukanyigit/100-il</a></p>
+</dialog>
+
+<dialog id="dlgYontem" class="dlg" aria-labelledby="yBaslik">
+  <div class="dlg-head">
+    <h2 id="yBaslik"><i class="mk-shape s-circle s-blue" aria-hidden="true"></i>Yöntem ve kaynaklar</h2>
+    <button type="button" class="icon-btn x" data-close aria-label="Kapat">×</button>
+  </div>
+  <ol class="steps">
+    <li><b>Kent çekirdeği.</b> İl merkezine yol mesafesi 30 km'den az olan ilçeler ve merkeze 20 dakikadan yakın, kilometrekarede 500 kişiden yoğun ilçeler ana ilde kalır.</li>
+    <li><b>Hinterland.</b> Bir aday il olursa, kendisine eski il merkezinden daha kısa sürede ulaşılan ilçeler ona bağlanır. Yeni il en az 150 bin kişiyi kapsamalı, geride kalan il 250 binin altına düşmemeli.</li>
+    <li><b>Puan.</b> Yeni ilin toplam nüfusu, ilçenin kendi nüfusu, il merkezine sürüş süresi ve SEGE-2022 gelişmişlik skoru 0–1 arasına ölçeklenip ağırlıklarla toplanır.</li>
+    <li><b>Seçim.</b> Her turda koşulları sağlayan en yüksek puanlı aday il olur, ilçeler en yakın merkeze yeniden dağıtılır. 19 il seçilene kadar sürer.</li>
+  </ol>
+  <p class="note">Model ilçeleri yalnızca kendi ili içinde dağıtır, il sınırı aşan birleşmeleri (ör. komşu ilden ilçe alma) değerlendirmez. Yol süreleri trafiksiz OSRM tahminidir. Bölgesel denge, güvenlik, tarih ve kimlik gibi ölçütler veriye girmez.</p>
+  <h3>Kaynaklar</h3>
+  <ul class="sources">
+    <li>Nüfus: TÜİK Adrese Dayalı Nüfus Kayıt Sistemi 2025</li>
+    <li>Gelişmişlik: Sanayi ve Teknoloji Bakanlığı, İlçelerin Sosyo-Ekonomik Gelişmişlik Sıralaması (SEGE-2022)</li>
+    <li>Sınırlar: geoBoundaries (CC BY 4.0)</li>
+    <li>Yol süreleri: OSRM, OpenStreetMap katkıcıları</li>
+  </ul>
+  <h3>Veri kontrolleri</h3>
+  <p class="note">973 ilçe merkezinin her biri kendi ilçe poligonunun içinde. Kaynak tabloda hatalı olan 10 koordinat (Yüksekova, Defne, Çaldıran gibi) düzeltildi. Yol tablosunda yoldan 2 km'den uzağa oturan noktalar ve fiziksel olarak imkânsız çiftler tek tek rota sorgusuyla yeniden hesaplandı. Toplam nüfus TÜİK'in açıkladığı 86.092.168 ile 9 kişi farkla örtüşüyor.</p>
+</dialog>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
