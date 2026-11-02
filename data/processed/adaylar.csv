@@ -1,0 +1,196 @@
+id,il,ilce,nufus,il_merkez_dk,sege,hinter_nufus,hinter_ilce,hinter_liste,parent_kalan,parent_toplam,uygun,neden,puan,s_hinter,s_own,s_dist,s_sege,basin_listesi
+92,Antalya,Alanya,371547,104.9,1.676,711439,5,"Akseki, Gazipaşa, Gündoğmuş, Manavgat",2066238,2777677,True,,75.4,0.865,0.84,0.499,0.794,True
+616,Kocaeli,Gebze,414960,37.9,2.334,927697,5,"Çayırova, Darıca, Dilovası, Karamürsel",1233474,2161171,True,,72.0,0.97,0.877,0.053,0.958,False
+106,Antalya,Manavgat,266480,61.2,1.538,861757,7,"Akseki, Alanya, Gazipaşa, Gündoğmuş, İbradı, Serik",1915920,2777677,True,,67.9,0.941,0.729,0.208,0.76,True
+720,Muğla,Bodrum,207196,99.1,2.483,359471,2,Milas,740076,1099547,True,,65.2,0.595,0.645,0.461,0.996,False
+878,Tekirdağ,Çorlu,306939,37.0,1.577,837162,6,"Çerkezköy, Ergene, Kapaklı, Marmaraereğlisi, Saray",371279,1208441,True,,64.6,0.93,0.776,0.047,0.769,True
+877,Tekirdağ,Çerkezköy,223975,56.3,1.034,803539,5,"Çorlu, Ergene, Kapaklı, Saray",404902,1208441,True,,62.4,0.913,0.671,0.175,0.634,False
+723,Muğla,Fethiye,187332,107.7,1.522,365011,4,"Dalaman, Ortaca, Seydikemer",734536,1099547,True,,61.3,0.601,0.611,0.518,0.756,True
+613,Kocaeli,Darıca,235632,42.7,0.603,927697,5,"Çayırova, Dilovası, Gebze, Karamürsel",1233474,2161171,True,,60.4,0.97,0.688,0.085,0.526,False
+612,Kocaeli,Çayırova,162262,41.9,0.962,927697,5,"Darıca, Dilovası, Gebze, Karamürsel",1233474,2161171,True,,59.5,0.97,0.563,0.079,0.615,False
+681,Manisa,Akhisar,181472,51.1,0.543,783406,12,"Alaşehir, Demirci, Gölmarmara, Gördes, Kırkağaç, Köprübaşı, Kula, Salihli, Sarıgöl, Selendi, Soma",694350,1477756,True,,57.4,0.903,0.601,0.141,0.511,False
+423,Hatay,İskenderun,228149,46.9,1.056,601722,6,"Arsuz, Belen, Dörtyol, Erzin, Payas",975809,1577531,True,,57.1,0.799,0.677,0.113,0.639,True
+881,Tekirdağ,Kapaklı,152509,61.5,0.149,803539,5,"Çerkezköy, Çorlu, Ergene, Saray",404902,1208441,True,,56.3,0.913,0.543,0.21,0.412,False
+108,Antalya,Serik,147062,33.8,0.852,861757,7,"Akseki, Alanya, Gazipaşa, Gündoğmuş, İbradı, Manavgat",1915920,2777677,True,,55.9,0.941,0.531,0.025,0.588,False
+97,Antalya,Gazipaşa,55850,142.9,0.152,434350,3,"Alanya, Gündoğmuş",2343327,2777677,True,,54.7,0.67,0.207,0.753,0.413,False
+514,İzmir,Torbalı,224133,39.0,0.927,578045,7,"Bayındır, Beydağ, Kiraz, Ödemiş, Selçuk, Tire",3926140,4504185,True,,54.5,0.783,0.671,0.06,0.607,False
+221,Bursa,İnegöl,306004,45.8,1.018,413212,4,"Harmancık, İznik, Yenişehir",2849799,3263011,True,,53.5,0.65,0.775,0.105,0.63,False
+508,İzmir,Menemen,220510,35.9,0.838,554404,6,"Aliağa, Bergama, Dikili, Foça, Kınık",3949781,4504185,True,,52.8,0.766,0.666,0.039,0.584,False
+420,Hatay,Dörtyol,132987,69.3,0.323,563846,5,"Arsuz, Erzin, İskenderun, Payas",1013685,1577531,True,,52.7,0.773,0.497,0.262,0.456,False
+486,İzmir,Aliağa,110892,53.2,1.154,554404,6,"Bergama, Dikili, Foça, Kınık, Menemen",3949781,4504185,True,,52.7,0.766,0.436,0.155,0.664,False
+503,İzmir,Kemalpaşa,122840,27.0,0.983,729489,9,"Bayındır, Beydağ, Kınık, Kiraz, Ödemiş, Selçuk, Tire, Torbalı",3774696,4504185,True,,52.5,0.875,0.471,0.0,0.621,False
+689,Manisa,Salihli,165007,61.1,0.616,471995,10,"Ahmetli, Alaşehir, Demirci, Gölmarmara, Gördes, Köprübaşı, Kula, Sarıgöl, Selendi",1005761,1477756,True,,51.7,0.703,0.569,0.207,0.529,False
+477,İstanbul,Silivri,240029,54.9,1.312,321172,2,Çatalca,15432881,15754053,True,,51.4,0.55,0.694,0.166,0.703,False
+148,Balıkesir,Edremit,176251,61.2,1.072,367608,5,"Ayvalık, Burhaniye, Gömeç, Havran",916909,1284517,True,,51.0,0.604,0.591,0.208,0.643,True
+682,Manisa,Alaşehir,104565,92.3,0.038,471995,10,"Ahmetli, Demirci, Gölmarmara, Gördes, Köprübaşı, Kula, Salihli, Sarıgöl, Selendi",1005761,1477756,True,,51.0,0.703,0.417,0.415,0.384,False
+144,Balıkesir,Bandırma,169476,74.5,1.072,306763,5,"Erdek, Gönen, Manyas, Marmara",977754,1284517,True,,50.5,0.532,0.578,0.297,0.643,True
+695,Manisa,Turgutlu,179326,27.4,0.489,625865,10,"Ahmetli, Alaşehir, Demirci, Gölmarmara, Köprübaşı, Kula, Salihli, Sarıgöl, Selendi",851891,1477756,True,,50.4,0.814,0.597,0.0,0.497,False
+879,Tekirdağ,Ergene,68648,38.5,0.687,837162,6,"Çerkezköy, Çorlu, Kapaklı, Marmaraereğlisi, Saray",371279,1208441,True,,50.4,0.93,0.276,0.057,0.547,False
+885,Tekirdağ,Saray,51468,69.2,0.125,803539,5,"Çerkezköy, Çorlu, Ergene, Kapaklı",404902,1208441,True,,50.2,0.913,0.18,0.261,0.406,False
+135,Aydın,Kuşadası,141431,50.4,1.495,368415,3,"Didim, Söke",803692,1172107,True,,49.9,0.605,0.518,0.136,0.749,False
+620,Kocaeli,Karamürsel,59488,43.1,0.328,927697,5,"Çayırova, Darıca, Dilovası, Gebze",1233474,2161171,True,,49.9,0.97,0.229,0.087,0.457,False
+521,Kahramanmaraş,Elbistan,132036,115.6,0.13,282876,5,"Afşin, Ekinözü, Göksun, Nurhak",863402,1146278,True,,49.8,0.5,0.495,0.571,0.408,True
+417,Hatay,Arsuz,115077,68.8,-0.064,563846,5,"Dörtyol, Erzin, İskenderun, Payas",1013685,1577531,True,,49.7,0.773,0.449,0.259,0.359,False
+142,Balıkesir,Ayvalık,75815,90.5,0.907,367608,5,"Burhaniye, Edremit, Gömeç, Havran",916909,1284517,True,,49.4,0.604,0.309,0.403,0.602,False
+615,Kocaeli,Dilovası,55355,32.3,0.665,927697,5,"Çayırova, Darıca, Gebze, Karamürsel",1233474,2161171,True,,49.3,0.97,0.204,0.015,0.541,False
+424,Hatay,Kırıkhan,108200,31.2,-0.206,901266,10,"Arsuz, Belen, Dörtyol, Erzin, Hassa, İskenderun, Kumlu, Payas, Reyhanlı",676265,1577531,True,,48.8,0.959,0.428,0.008,0.324,False
+728,Muğla,Milas,152275,63.1,0.681,359471,2,Bodrum,740076,1099547,True,,48.1,0.595,0.542,0.221,0.545,False
+510,İzmir,Ödemiş,132548,88.3,0.336,315334,5,"Bayındır, Beydağ, Kiraz, Tire",4188851,4504185,True,,47.8,0.543,0.496,0.389,0.459,False
+636,Konya,Ereğli,158010,107.2,0.453,221360,4,"Emirgazi, Halkapınar, Karapınar",2122049,2343409,True,,47.8,0.403,0.555,0.515,0.488,False
+693,Manisa,Soma,110188,62.7,0.416,405248,6,"Akhisar, Demirci, Gölmarmara, Gördes, Kırkağaç",1072508,1477756,True,,46.2,0.642,0.434,0.218,0.479,False
+716,Mersin,Silifke,139610,60.9,0.519,340208,6,"Anamur, Aydıncık, Bozyazı, Gülnar, Mut",1616220,1956428,True,,45.6,0.573,0.513,0.206,0.505,False
+712,Mersin,Erdemli,157566,26.6,0.331,497774,7,"Anamur, Aydıncık, Bozyazı, Gülnar, Mut, Silifke",1458654,1956428,True,,45.6,0.724,0.554,0.0,0.458,False
+513,İzmir,Tire,87571,74.5,0.5,353912,6,"Bayındır, Beydağ, Kiraz, Ödemiş, Selçuk",4150273,4504185,True,,45.2,0.589,0.358,0.297,0.5,False
+771,Ordu,Ünye,135914,48.6,0.266,415510,11,"Akkuş, Aybastı, Çamaş, Çatalpınar, Çaybaşı, Fatsa, İkizce, Kabataş, Korgan, Kumru",352577,768087,True,,44.8,0.652,0.504,0.124,0.442,True
+151,Balıkesir,Gönen,75730,94.8,0.326,306763,5,"Bandırma, Erdek, Manyas, Marmara",977754,1284517,True,,44.7,0.532,0.309,0.432,0.456,False
+729,Muğla,Ortaca,58704,62.9,0.884,406821,5,"Dalaman, Fethiye, Köyceğiz, Seydikemer",692726,1099547,True,,44.4,0.644,0.224,0.219,0.596,False
+730,Muğla,Seydikemer,65648,123.3,-0.505,306307,3,"Dalaman, Fethiye",793240,1099547,True,,44.4,0.532,0.261,0.622,0.249,False
+490,İzmir,Bergama,107549,79.3,0.379,296183,4,"Aliağa, Dikili, Kınık",4208002,4504185,True,,44.3,0.518,0.426,0.329,0.47,False
+688,Manisa,Kula,43015,95.6,-0.119,454383,9,"Alaşehir, Demirci, Gölmarmara, Gördes, Köprübaşı, Salihli, Sarıgöl, Selendi",1023373,1477756,True,,44.3,0.688,0.12,0.437,0.345,False
+867,Şanlıurfa,Siverek,277399,67.5,-0.797,319368,2,Hilvan,1946432,2265800,True,,43.8,0.548,0.742,0.25,0.176,True
+721,Muğla,Dalaman,53327,71.7,0.548,406821,5,"Fethiye, Köyceğiz, Ortaca, Seydikemer",692726,1099547,True,,43.6,0.644,0.192,0.278,0.512,False
+138,Aydın,Söke,123843,38.4,0.821,368415,3,"Didim, Kuşadası",803692,1172107,True,,43.6,0.605,0.473,0.056,0.58,False
+146,Balıkesir,Burhaniye,68370,67.1,0.586,367608,5,"Ayvalık, Edremit, Gömeç, Havran",916909,1284517,True,,43.2,0.604,0.275,0.247,0.522,False
+426,Hatay,Payas,44530,60.7,-0.028,601722,6,"Arsuz, Belen, Dörtyol, Erzin, İskenderun",975809,1577531,True,,43.1,0.799,0.132,0.205,0.368,False
+708,Mersin,Anamur,66952,155.1,0.316,137840,4,"Aydıncık, Bozyazı, Gülnar",1818588,1956428,False,yeni il nüfusu yetersiz,42.8,0.215,0.268,0.834,0.454,False
+627,Konya,Beyşehir,80353,71.0,0.369,339012,12,"Ahırlı, Akşehir, Bozkır, Çeltik, Derbent, Derebucak, Doğanhisar, Hüyük, Seydişehir, Yalıhüyük, Yunak",2004397,2343409,True,,42.8,0.572,0.329,0.273,0.467,False
+860,Şanlıurfa,Ceylanpınar,93105,108.6,-0.835,308832,2,Viranşehir,1956968,2265800,True,,42.7,0.535,0.378,0.524,0.166,False
+625,Konya,Akşehir,93613,103.1,0.372,211548,7,"Çeltik, Doğanhisar, Hüyük, Ilgın, Tuzlukçu, Yunak",2131861,2343409,True,,42.6,0.385,0.38,0.487,0.468,False
+516,Kahramanmaraş,Afşin,80124,103.0,-0.307,282876,5,"Ekinözü, Elbistan, Göksun, Nurhak",863402,1146278,True,,42.2,0.5,0.328,0.487,0.298,False
+759,Ordu,Fatsa,129844,30.9,0.363,415510,11,"Akkuş, Aybastı, Çamaş, Çatalpınar, Çaybaşı, İkizce, Kabataş, Korgan, Kumru, Ünye",352577,768087,True,,42.1,0.652,0.489,0.006,0.466,False
+100,Antalya,Kaş,63957,149.6,0.203,144468,3,"Demre, Finike",2633209,2777677,False,yeni il nüfusu yetersiz,41.7,0.234,0.253,0.797,0.426,False
+869,Şanlıurfa,Viranşehir,215727,66.3,-0.803,308832,2,Ceylanpınar,1956968,2265800,True,,41.4,0.535,0.659,0.242,0.174,False
+496,İzmir,Dikili,49138,86.4,0.609,296183,4,"Aliağa, Bergama, Kınık",4208002,4504185,True,,41.4,0.518,0.165,0.376,0.527,False
+421,Hatay,Erzin,43103,82.1,-0.24,448769,4,"Dörtyol, İskenderun, Payas",1128762,1577531,True,,41.3,0.683,0.121,0.347,0.315,False
+874,Şırnak,Silopi,152610,49.2,-0.621,395448,3,"Cizre, İdil",178218,573666,False,geride kalan il çok küçülüyor,40.6,0.633,0.543,0.128,0.22,False
+937,Van,Erciş,169040,82.2,-0.715,260612,3,"Çaldıran, Muradiye",851401,1112013,True,,40.5,0.468,0.577,0.348,0.196,True
+596,Kırklareli,Lüleburgaz,157136,48.3,1.12,206767,3,"Babaeski, Pehlivanköy",172828,379595,False,geride kalan il çok küçülüyor,40.4,0.376,0.553,0.122,0.655,True
+105,Antalya,Kumluca,75588,72.0,0.515,261606,5,"Demre, Elmalı, Finike, Kaş",2516071,2777677,True,,39.7,0.469,0.308,0.28,0.504,False
+461,İstanbul,Çatalca,81143,44.7,0.761,321172,2,Silivri,15432881,15754053,True,,39.7,0.55,0.332,0.098,0.565,False
+137,Aydın,Nazilli,162156,32.9,0.756,261934,6,"Bozdoğan, Buharkent, Karacasu, Kuyucak, Yenipazar",910173,1172107,True,,39.5,0.47,0.563,0.019,0.564,True
+715,Mersin,Mut,62758,121.1,-0.179,200598,5,"Anamur, Aydıncık, Bozyazı, Gülnar",1755830,1956428,True,,39.5,0.364,0.246,0.607,0.33,False
+320,Edirne,Keşan,85259,86.5,0.623,192350,5,"Enez, İpsala, Meriç, Uzunköprü",230088,422438,False,geride kalan il çok küçülüyor,39.2,0.347,0.349,0.377,0.531,False
+871,Şırnak,Cizre,166290,30.0,-0.475,408010,4,"Güçlükonak, İdil, Silopi",165656,573666,False,geride kalan il çok küçülüyor,39.1,0.645,0.572,0.0,0.256,True
+505,İzmir,Kiraz,43340,108.7,-0.599,315334,5,"Bayındır, Beydağ, Ödemiş, Tire",4188851,4504185,True,,39.1,0.543,0.123,0.525,0.225,False
+95,Antalya,Elmalı,41550,93.5,-0.15,319987,6,"Demre, Finike, Kaş, Korkuteli, Kumluca",2457690,2777677,True,,38.7,0.549,0.109,0.423,0.338,False
+96,Antalya,Finike,52436,85.1,0.315,261606,5,"Demre, Elmalı, Kaş, Kumluca",2516071,2777677,True,,38.4,0.469,0.186,0.367,0.454,False
+969,Zonguldak,Karadeniz Ereğli,173884,43.4,0.612,217101,2,Alaplı,368102,585203,True,,38.4,0.395,0.587,0.089,0.528,False
+232,Bursa,Yenişehir,55609,45.6,0.062,407123,3,"İnegöl, İznik",2855888,3263011,True,,37.1,0.644,0.206,0.104,0.39,False
+702,Mardin,Midyat,125791,57.3,-0.36,272025,3,"Dargeçit, Nusaybin",631551,903576,True,,36.8,0.485,0.478,0.182,0.285,True
+101,Antalya,Kemer,52339,36.9,1.501,272395,5,"Demre, Finike, Kaş, Kumluca",2505282,2777677,True,,36.8,0.485,0.186,0.046,0.75,False
+725,Muğla,Köyceğiz,41810,50.7,0.205,406821,5,"Dalaman, Fethiye, Ortaca, Seydikemer",692726,1099547,True,,36.7,0.644,0.111,0.138,0.426,False
+515,İzmir,Urla,82021,30.2,1.768,211360,4,"Çeşme, Karaburun, Seferihisar",4292825,4504185,True,,36.6,0.385,0.336,0.001,0.817,False
+218,Bursa,Gemlik,124400,28.9,0.743,251907,3,"İznik, Orhangazi",3011104,3263011,True,,36.6,0.454,0.475,0.0,0.561,False
+873,Şırnak,İdil,76548,51.1,-0.842,408010,4,"Cizre, Güçlükonak, Silopi",165656,573666,False,geride kalan il çok küçülüyor,35.6,0.645,0.313,0.141,0.164,False
+7,Adana,Kozan,132572,53.7,0.016,220353,6,"Aladağ, Feke, İmamoğlu, Saimbeyli, Tufanbeyli",2063256,2283609,True,,35.5,0.401,0.496,0.158,0.379,False
+703,Mardin,Nusaybin,119559,50.8,-0.395,272025,3,"Dargeçit, Midyat",631551,903576,True,,35.2,0.485,0.462,0.139,0.276,False
+236,Çanakkale,Biga,94526,73.0,0.426,170774,3,"Çan, Yenice",403202,573976,True,,35.0,0.3,0.383,0.287,0.482,False
+227,Bursa,Mustafakemalpaşa,103652,63.1,0.285,190195,2,Karacabey,3072816,3263011,True,,34.7,0.343,0.414,0.221,0.446,False
+85,Ankara,Polatlı,131894,59.5,0.581,157692,2,Haymana,5752619,5910311,True,,34.6,0.269,0.494,0.197,0.52,True
+641,Konya,Ilgın,53167,69.8,-0.121,275381,10,"Akşehir, Çeltik, Derbent, Doğanhisar, Hüyük, Kadınhanı, Sarayönü, Tuzlukçu, Yunak",2068028,2343409,True,,34.5,0.489,0.191,0.265,0.345,False
+891,Tokat,Erbaa,103409,60.9,-0.097,218556,4,"Başçiftlik, Niksar, Reşadiye",395585,614141,True,,34.4,0.398,0.413,0.206,0.351,False
+230,Bursa,Orhangazi,81997,40.5,0.486,251907,3,"Gemlik, İznik",3011104,3263011,True,,34.3,0.454,0.336,0.07,0.496,False
+812,Samsun,Bafra,143387,41.7,0.256,205521,4,"19 Mayıs, Alaçam, Yakakent",1186882,1392403,True,,34.2,0.374,0.522,0.078,0.439,False
+79,Ankara,Kahramankazan,63134,39.0,1.538,196784,7,"Ayaş, Beypazarı, Çamlıdere, Güdül, Kızılcahamam, Nallıhan",5713527,5910311,True,,34.1,0.356,0.248,0.06,0.76,False
+413,Hakkâri,Şemdinli,43034,122.4,-0.633,189217,3,"Derecik, Yüksekova",90464,279681,False,geride kalan il çok küçülüyor,34.1,0.341,0.12,0.616,0.217,False
+726,Muğla,Marmaris,97373,55.3,1.671,123440,2,Datça,976107,1099547,False,yeni il nüfusu yetersiz,33.9,0.172,0.393,0.169,0.793,False
+814,Samsun,Çarşamba,143206,30.2,-0.015,252517,4,"Ayvacık, Salıpazarı, Terme",1139886,1392403,True,,33.8,0.455,0.522,0.001,0.371,False
+298,Diyarbakır,Ergani,141098,44.2,-0.572,258076,5,"Çermik, Çüngüş, Dicle, Eğil",1594280,1852356,True,,33.6,0.464,0.517,0.095,0.232,True
+664,Kütahya,Simav,60886,107.0,-0.027,147829,6,"Emet, Gediz, Hisarcık, Pazarlar, Şaphane",422649,570478,False,yeni il nüfusu yetersiz,33.4,0.243,0.236,0.513,0.368,False
+427,Hatay,Reyhanlı,117645,35.2,-0.54,299544,4,"Hassa, Kırıkhan, Kumlu",1277987,1577531,True,,33.1,0.523,0.456,0.035,0.24,False
+522,Kahramanmaraş,Göksun,49145,63.6,-0.502,314485,6,"Afşin, Andırın, Ekinözü, Elbistan, Nurhak",831793,1146278,True,,32.9,0.542,0.165,0.224,0.25,False
+649,Konya,Seydişehir,66079,68.2,0.228,197607,7,"Ahırlı, Beyşehir, Bozkır, Derebucak, Hüyük, Yalıhüyük",2145802,2343409,True,,32.8,0.358,0.264,0.255,0.432,False
+223,Bursa,Karacabey,86543,49.6,0.56,190195,2,Mustafakemalpaşa,3072816,3263011,True,,32.6,0.343,0.354,0.131,0.515,False
+414,Hakkâri,Yüksekova,121314,65.3,-0.477,189217,3,"Derecik, Şemdinli",90464,279681,False,geride kalan il çok küçülüyor,32.3,0.341,0.466,0.235,0.256,True
+127,Aydın,Didim,103141,80.4,0.842,103141,1,,1068966,1172107,False,yeni il nüfusu yetersiz,31.9,0.101,0.412,0.336,0.586,False
+643,Konya,Karapınar,51756,71.2,-0.161,221360,4,"Emirgazi, Ereğli, Halkapınar",2122049,2343409,True,,31.3,0.403,0.182,0.275,0.335,False
+666,Kütahya,Tavşanlı,100882,36.3,0.309,203819,5,"Domaniç, Emet, Hisarcık, Simav",366659,570478,True,,31.2,0.37,0.405,0.042,0.452,False
+1,Adana,Ceyhan,156081,37.8,0.103,173887,2,Yumurtalık,2109722,2283609,True,,31.1,0.307,0.551,0.052,0.401,False
+238,Çanakkale,Çan,46612,68.9,0.258,199254,4,"Bayramiç, Biga, Yenice",374722,573976,True,,30.9,0.361,0.147,0.259,0.44,False
+821,Samsun,Terme,71348,44.1,-0.202,252517,4,"Ayvacık, Çarşamba, Salıpazarı",1139886,1392403,True,,30.6,0.455,0.289,0.094,0.324,False
+44,Ağrı,Doğubayazıt,113699,80.6,-0.647,149138,2,Diyadin,342351,491489,False,yeni il nüfusu yetersiz,30.2,0.247,0.445,0.337,0.213,False
+934,Van,Çaldıran,50170,83.9,-1.22,260612,3,"Erciş, Muradiye",851401,1112013,True,,30.2,0.468,0.172,0.359,0.07,False
+960,Yozgat,Sorgun,80068,30.5,-0.038,257158,11,"Akdağmadeni, Aydıncık, Boğazlıyan, Çandır, Çayıralan, Çekerek, Kadışehri, Saraykent, Sarıkaya, Yenifakılı",156050,413208,False,geride kalan il çok küçülüyor,30.1,0.462,0.328,0.003,0.366,False
+775,Osmaniye,Kadirli,127644,49.8,0.157,140693,2,Sumbas,423430,564123,False,yeni il nüfusu yetersiz,29.1,0.224,0.483,0.132,0.414,False
+822,Samsun,Vezirköprü,87575,85.0,-0.537,141620,3,"Havza, Ladik",1250783,1392403,False,yeni il nüfusu yetersiz,29.0,0.226,0.358,0.367,0.241,False
+797,Sakarya,Hendek,93990,25.9,0.328,193551,2,Akyazı,930142,1123693,True,,29.0,0.35,0.381,0.0,0.457,False
+511,İzmir,Seferihisar,63712,43.0,0.924,159458,3,"Karaburun, Urla",4344727,4504185,True,,28.9,0.273,0.251,0.087,0.606,False
+324,Edirne,Uzunköprü,59085,54.7,0.1,192350,5,"Enez, İpsala, Keşan, Meriç",230088,422438,False,geride kalan il çok küçülüyor,28.8,0.347,0.226,0.165,0.4,False
+645,Konya,Kulu,51732,111.8,-0.125,110340,3,"Cihanbeyli, Çeltik",2233069,2343409,False,yeni il nüfusu yetersiz,28.6,0.127,0.182,0.545,0.344,False
+792,Sakarya,Akyazı,99561,25.7,0.153,193551,2,Hendek,930142,1123693,True,,28.5,0.35,0.4,0.0,0.413,False
+382,Gaziantep,Nizip,152660,35.5,-0.157,161747,2,Karkamış,2060668,2222415,True,,28.2,0.279,0.543,0.037,0.336,False
+222,Bursa,İznik,45510,63.4,0.099,183116,3,"Orhangazi, Yenişehir",3079895,3263011,True,,27.8,0.328,0.139,0.223,0.4,False
+892,Tokat,Niksar,63594,43.1,-0.169,218556,4,"Başçiftlik, Erbaa, Reşadiye",395585,614141,True,,27.8,0.398,0.251,0.087,0.333,False
+72,Ankara,Çubuk,101437,35.1,0.298,160957,3,"Akyurt, Kalecik",5749354,5910311,True,,27.7,0.277,0.407,0.034,0.45,False
+31,Afyonkarahisar,Dinar,46878,90.6,-0.132,139301,7,"Başmakçı, Dazkırı, Evciler, Hocalar, Kızılören, Sandıklı",612507,751808,False,yeni il nüfusu yetersiz,27.6,0.22,0.149,0.404,0.342,False
+857,Şanlıurfa,Akçakale,131351,40.5,-1.258,233061,2,Harran,2032739,2265800,True,,27.6,0.423,0.493,0.07,0.06,False
+941,Van,Muradiye,41402,69.4,-1.112,260612,3,"Çaldıran, Erciş",851401,1112013,True,,27.0,0.468,0.108,0.263,0.097,False
+868,Şanlıurfa,Suruç,98022,37.4,-0.91,231483,3,"Birecik, Halfeti",2034317,2265800,True,,26.8,0.421,0.395,0.049,0.148,False
+894,Tokat,Reşadiye,43108,66.5,-0.657,218556,4,"Başçiftlik, Erbaa, Niksar",395585,614141,True,,26.6,0.398,0.121,0.243,0.211,False
+865,Şanlıurfa,Hilvan,41969,40.2,-0.84,319368,2,Siverek,1946432,2265800,True,,26.4,0.548,0.112,0.068,0.165,False
+965,Zonguldak,Alaplı,43217,50.7,-0.17,217101,2,Karadeniz Ereğli,368102,585203,True,,26.4,0.395,0.122,0.138,0.332,False
+293,Diyarbakır,Çermik,49299,73.2,-0.887,200454,3,"Çüngüş, Ergani",1651902,1852356,True,,26.3,0.364,0.166,0.288,0.153,False
+966,Zonguldak,Çaycuma,91796,32.7,0.08,169766,3,"Devrek, Gökçebey",415437,585203,True,,26.2,0.298,0.373,0.018,0.395,False
+629,Konya,Cihanbeyli,49126,77.0,-0.159,144973,5,"Altınekin, Çeltik, Kulu, Yunak",2198436,2343409,False,yeni il nüfusu yetersiz,26.1,0.235,0.165,0.313,0.335,False
+20,Adıyaman,Kâhta,136769,25.3,-0.512,173901,4,"Gerger, Samsat, Sincik",443920,617821,True,,25.8,0.307,0.506,0.0,0.247,True
+660,Kütahya,Gediz,48539,68.5,-0.083,153332,7,"Çavdarhisar, Emet, Hisarcık, Pazarlar, Simav, Şaphane",417146,570478,True,,25.7,0.258,0.161,0.257,0.354,False
+494,İzmir,Çeşme,51902,55.8,1.998,65627,2,Karaburun,4438558,4504185,False,yeni il nüfusu yetersiz,25.4,0.0,0.183,0.172,0.874,False
+858,Şanlıurfa,Birecik,91837,67.6,-0.66,133461,2,Halfeti,2132339,2265800,False,yeni il nüfusu yetersiz,25.0,0.203,0.373,0.251,0.21,False
+864,Şanlıurfa,Harran,101710,39.9,-1.447,233061,2,Akçakale,2032739,2265800,True,,24.9,0.423,0.408,0.066,0.013,False
+592,Kırklareli,Babaeski,46355,26.7,0.252,206767,3,"Lüleburgaz, Pehlivanköy",172828,379595,False,geride kalan il çok küçülüyor,24.8,0.376,0.145,0.0,0.438,False
+272,Denizli,Acıpayam,54769,51.6,0.052,151847,6,"Beyağaç, Çameli, Kale, Serinhisar, Tavas",909128,1060975,True,,24.3,0.254,0.201,0.144,0.388,False
+967,Zonguldak,Devrek,56900,40.6,-0.038,169766,3,"Çaycuma, Gökçebey",415437,585203,True,,23.8,0.298,0.214,0.071,0.366,False
+65,Ankara,Akyurt,46956,30.8,0.705,160957,3,"Çubuk, Kalecik",5749354,5910311,True,,23.8,0.277,0.15,0.005,0.551,False
+38,Afyonkarahisar,Sandıklı,54376,54.2,0.052,139301,7,"Başmakçı, Dazkırı, Dinar, Evciler, Hocalar, Kızılören",612507,751808,False,yeni il nüfusu yetersiz,23.4,0.22,0.199,0.161,0.388,False
+422,Hatay,Hassa,57457,57.9,-0.627,165657,2,Kırıkhan,1411874,1577531,True,,23.4,0.288,0.217,0.186,0.218,False
+69,Ankara,Beypazarı,48359,82.1,0.269,95606,4,"Ayaş, Güdül, Nallıhan",5814705,5910311,False,yeni il nüfusu yetersiz,23.2,0.071,0.159,0.347,0.442,False
+736,Muş,Malazgirt,40595,116.6,-1.027,109578,2,Bulanık,279549,389127,False,yeni il nüfusu yetersiz,23.2,0.125,0.101,0.577,0.118,False
+733,Muş,Bulanık,68983,94.3,-1.036,109578,2,Malazgirt,279549,389127,False,yeni il nüfusu yetersiz,23.0,0.125,0.278,0.429,0.116,False
+445,Isparta,Yalvaç,44596,95.0,-0.1,95575,5,"Gelendost, Senirkent, Şarkikaraağaç, Yenişarbademli",349728,445303,False,yeni il nüfusu yetersiz,22.9,0.07,0.132,0.433,0.35,False
+305,Diyarbakır,Silvan,86752,59.5,-0.824,136749,3,"Hazro, Kulp",1715607,1852356,False,yeni il nüfusu yetersiz,22.8,0.212,0.354,0.197,0.169,False
+47,Ağrı,Patnos,105968,60.3,-1.05,131888,2,Tutak,359601,491489,False,yeni il nüfusu yetersiz,22.7,0.198,0.421,0.202,0.112,False
+862,Şanlıurfa,Halfeti,41624,87.4,-0.798,133461,2,Birecik,2132339,2265800,False,yeni il nüfusu yetersiz,22.4,0.203,0.109,0.383,0.176,False
+175,Bilecik,Bozüyük,81332,29.5,0.608,111366,4,"İnhisar, Pazaryeri, Söğüt",117629,228995,False,yeni il nüfusu yetersiz; geride kalan il çok küçülüyor,21.8,0.131,0.333,0.0,0.527,False
+897,Tokat,Turhal,77707,34.7,0.037,130436,2,Zile,483705,614141,False,yeni il nüfusu yetersiz,21.6,0.194,0.318,0.031,0.384,False
+62,Amasya,Merzifon,77077,37.7,0.547,103024,3,"Gümüşhacıköy, Hamamözü",239218,342242,False,yeni il nüfusu yetersiz; geride kalan il çok küçülüyor,21.3,0.1,0.315,0.051,0.512,False
+380,Gaziantep,İslahiye,66107,70.0,-0.37,104376,2,Nurdağı,2118039,2222415,False,yeni il nüfusu yetersiz,21.3,0.105,0.264,0.267,0.282,False
+899,Tokat,Zile,52729,54.3,-0.186,130436,2,Turhal,483705,614141,False,yeni il nüfusu yetersiz,21.2,0.194,0.188,0.162,0.328,False
+569,Kayseri,Develi,67818,35.0,-0.139,138590,4,"Tomarza, Yahyalı, Yeşilhisar",1320401,1458991,False,yeni il nüfusu yetersiz,20.7,0.218,0.272,0.033,0.34,False
+27,Afyonkarahisar,Bolvadin,45906,45.5,-0.045,139617,5,"Bayat, Çay, Emirdağ, Sultandağı",612191,751808,False,yeni il nüfusu yetersiz,20.4,0.22,0.142,0.103,0.364,False
+294,Diyarbakır,Çınar,79114,23.0,-1.256,198929,2,Bismil,1653427,1852356,True,,20.3,0.361,0.324,0.0,0.061,False
+19,Adıyaman,Gölbaşı,47917,48.2,-0.133,132514,3,"Besni, Tut",485307,617821,False,yeni il nüfusu yetersiz,20.0,0.2,0.156,0.121,0.342,False
+292,Diyarbakır,Bismil,119815,37.1,-0.727,119815,1,,1732541,1852356,False,yeni il nüfusu yetersiz,19.9,0.16,0.462,0.047,0.193,False
+480,İstanbul,Şile,50090,62.7,0.698,50090,1,,15703963,15754053,False,yeni il nüfusu yetersiz,19.9,0.0,0.171,0.218,0.55,False
+282,Denizli,Çivril,59689,72.1,-0.127,88475,4,"Baklan, Bekilli, Çal",972500,1060975,False,yeni il nüfusu yetersiz,19.9,0.04,0.23,0.281,0.343,False
+911,Trabzon,Of,43591,40.6,-0.06,146421,7,"Araklı, Çaykara, Dernekpazarı, Hayrat, Köprübaşı, Sürmene",676902,823323,False,yeni il nüfusu yetersiz,19.8,0.239,0.125,0.071,0.36,False
+799,Sakarya,Karasu,75887,41.2,0.159,100853,2,Kocaali,1022840,1123693,False,yeni il nüfusu yetersiz,19.6,0.092,0.31,0.075,0.415,False
+16,Adıyaman,Besni,75398,35.0,-0.444,132514,3,"Gölbaşı, Tut",485307,617821,False,yeni il nüfusu yetersiz,19.3,0.2,0.308,0.033,0.264,False
+631,Konya,Çumra,68803,32.5,-0.233,131018,8,"Ahırlı, Akören, Bozkır, Güneysınır, Hadim, Taşkent, Yalıhüyük",2212391,2343409,False,yeni il nüfusu yetersiz,19.1,0.195,0.277,0.017,0.317,False
+290,Denizli,Tavas,40104,39.5,-0.165,151847,6,"Acıpayam, Beyağaç, Çameli, Kale, Serinhisar",909128,1060975,True,,19.1,0.254,0.097,0.063,0.334,False
+32,Afyonkarahisar,Emirdağ,43350,72.3,-0.183,96836,3,"Bayat, Bolvadin",654972,751808,False,yeni il nüfusu yetersiz,18.7,0.076,0.123,0.282,0.329,False
+773,Osmaniye,Düziçi,88274,25.2,-0.269,116177,3,"Bahçe, Hasanbeyli",447946,564123,False,yeni il nüfusu yetersiz,18.5,0.148,0.36,0.0,0.308,False
+104,Antalya,Korkuteli,58381,47.0,0.081,99931,2,Elmalı,2677746,2777677,False,yeni il nüfusu yetersiz,18.3,0.088,0.222,0.113,0.395,False
+901,Trabzon,Araklı,49230,26.8,-0.24,146421,7,"Çaykara, Dernekpazarı, Hayrat, Köprübaşı, Of, Sürmene",676902,823323,False,yeni il nüfusu yetersiz,18.0,0.239,0.165,0.0,0.315,False
+208,Burdur,Bucak,68312,41.5,0.439,80573,3,"Ağlasun, Çeltikçi",196653,277226,False,yeni il nüfusu yetersiz; geride kalan il çok küçülüyor,17.2,0.003,0.275,0.077,0.485,False
+832,Sinop,Boyabat,44901,69.4,-0.003,67345,3,"Durağan, Saraydüzü",158503,225848,False,yeni il nüfusu yetersiz; geride kalan il çok küçülüyor,16.7,0.0,0.135,0.263,0.374,False
+525,Kahramanmaraş,Pazarcık,66777,35.5,-0.388,110788,4,"Çağlayancerit, Ekinözü, Nurhak",1035490,1146278,False,yeni il nüfusu yetersiz,16.3,0.129,0.267,0.037,0.278,False
+270,Çorum,Sungurlu,49079,54.4,-0.243,87647,4,"Alaca, Boğazkale, Uğurludağ",431943,519590,False,yeni il nüfusu yetersiz,14.9,0.036,0.164,0.163,0.314,False
+242,Çanakkale,Gelibolu,44689,44.7,0.465,44689,1,,529287,573976,False,yeni il nüfusu yetersiz,14.9,0.0,0.133,0.098,0.491,False
+882,Tekirdağ,Malkara,50123,47.4,0.068,84581,2,Şarköy,1123860,1208441,False,yeni il nüfusu yetersiz,14.9,0.022,0.171,0.116,0.392,False
+699,Mardin,Derik,61553,60.7,-1.085,98934,2,Mazıdağı,804642,903576,False,yeni il nüfusu yetersiz,14.9,0.084,0.24,0.205,0.104,False
+779,Rize,Ardeşen,43519,36.6,0.078,101401,5,"Çamlıhemşin, Fındıklı, Hemşin, Pazar",245546,346947,False,yeni il nüfusu yetersiz; geride kalan il çok küçülüyor,14.8,0.094,0.124,0.044,0.394,False
+542,Kars,Kağızman,42717,75.9,-0.784,42717,1,,226274,268991,False,yeni il nüfusu yetersiz; geride kalan il çok küçülüyor,13.6,0.0,0.118,0.306,0.179,False
+942,Van,Özalp,51357,46.1,-1.159,118563,3,"Çaldıran, Saray",993450,1112013,False,yeni il nüfusu yetersiz,13.4,0.156,0.179,0.107,0.085,False
+73,Ankara,Elmadağ,45644,32.9,0.462,58208,2,Kalecik,5852103,5910311,False,yeni il nüfusu yetersiz,13.1,0.0,0.14,0.019,0.49,False
+796,Sakarya,Geyve,51708,29.1,-0.043,90308,3,"Pamukova, Taraklı",1033385,1123693,False,yeni il nüfusu yetersiz,12.6,0.048,0.182,0.0,0.364,False
+308,Düzce,Akçakoca,41134,36.5,0.257,41134,1,,374488,415622,False,yeni il nüfusu yetersiz,12.0,0.0,0.105,0.043,0.439,False
+169,Batman,Kozluk,58781,48.4,-0.885,86931,2,Sason,575695,662626,False,yeni il nüfusu yetersiz,11.8,0.033,0.225,0.123,0.154,False
+269,Çorum,Osmancık,42673,43.0,-0.194,67438,4,"Dodurga, Kargı, Oğuzlar",452152,519590,False,yeni il nüfusu yetersiz,11.0,0.0,0.118,0.087,0.326,False
+126,Aydın,Çine,47906,33.3,-0.07,58258,2,Karpuzlu,1113849,1172107,False,yeni il nüfusu yetersiz,10.8,0.0,0.156,0.022,0.358,False
+619,Kocaeli,Kandıra,54260,32.2,-0.235,54260,1,,2106911,2161171,False,yeni il nüfusu yetersiz,10.6,0.0,0.198,0.015,0.316,False
+145,Balıkesir,Bigadiç,49275,29.4,-0.138,80757,2,Sındırgı,1203760,1284517,False,yeni il nüfusu yetersiz,10.3,0.004,0.166,0.0,0.34,False
+191,Bitlis,Ahlat,45637,46.7,-0.706,74406,2,Adilcevaz,286017,360423,False,yeni il nüfusu yetersiz,9.6,0.0,0.14,0.111,0.198,False
+876,Şırnak,Uludere,45988,49.8,-0.81,59959,2,Beytüşşebap,513707,573666,False,yeni il nüfusu yetersiz,9.6,0.0,0.143,0.132,0.172,False
+859,Şanlıurfa,Bozova,50534,31.1,-0.947,92158,2,Halfeti,2173642,2265800,False,yeni il nüfusu yetersiz,8.4,0.056,0.174,0.007,0.138,False
+429,Hatay,Yayladağı,42019,33.2,-0.863,42019,1,,1535512,1577531,False,yeni il nüfusu yetersiz,6.0,0.0,0.112,0.021,0.159,False
+193,Bitlis,Güroymak,49372,25.7,-1.002,49372,1,,311051,360423,False,yeni il nüfusu yetersiz,5.8,0.0,0.166,0.0,0.124,False

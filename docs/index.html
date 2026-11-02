@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>100 İl Haritası</title>
+<meta name="description" content="Türkiye 100 il olsaydı, veri hangi 19 ilçeyi seçerdi? TÜİK 2025 nüfusu, il merkezine yol süresi ve SEGE-2022 ile 973 ilçeyi tartan etkileşimli harita.">
+<meta property="og:title" content="100 İl Haritası — veri hangi 19 ilçeyi seçerdi?">
+<meta property="og:description" content="973 ilçe, 4 ölçüt, 1000 senaryo. Ağırlıkları değiştir, Türkiye haritası yeniden çizilsin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+  <aside class="panel" id="panel">
+    <header class="hero">
+      <div class="plate plate-hero" aria-label="İl sayısı">
+        <span class="plate-tr">TR</span>
+        <span class="plate-num" id="ilSayisi">81</span>
+        <span class="plate-word">il</span>
+      </div>
+      <h1>Türkiye 100 il olsaydı, veri hangi ilçeleri seçerdi?</h1>
+      <p class="lead">“100 il, 1000 ilçe” önerisinde il olacak 19 ilçenin kesin listesi henüz açıklanmadı. Bu harita 973 ilçeyi nüfus, il merkezine uzaklık ve gelişmişlik verisiyle tartıyor ve 19 yeni ili kendisi seçiyor. Ağırlıkları değiştirdiğinde harita yeniden çizilir.</p>
+    </header>
+
+    <section class="block">
+      <h2>Neye önem verelim?</h2>
+      <div class="chips" id="senaryolar" role="group" aria-label="Hazır senaryolar"></div>
+      <div class="sliders" id="agirliklar"></div>
+      <details class="rules">
+        <summary>Kurallar</summary>
+        <div class="sliders" id="kurallar"></div>
+        <p class="note">Kent çekirdeği: il merkezine bu mesafeden yakın ilçeler ile merkeze bitişik yoğun kent dokusu (Pendik, Esenyurt gibi) aday olamaz, ana ilde kalır.</p>
+      </details>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Seçilen yeni iller</h2>
+        <span class="count" id="secimSayisi"></span>
+      </div>
+      <p class="note">Plaka kodları, il adlarının alfabetik sırasına göre 82'den başlar. Çubuk, ilçenin 1000 rastgele ağırlık senaryosunun yüzde kaçında seçildiğini gösterir.</p>
+      <ol class="plates" id="liste"></ol>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Basında dolaşan listeyle karşılaştırma</h2>
+        <label class="toggle"><input type="checkbox" id="basinGoster" checked> Haritada göster</label>
+      </div>
+      <p class="note">Basında 19 ilçelik bir aday listesi yer aldı (<a href="https://www.gzt.com/gundem/turkiyede-19-ilce-il-mi-oluyor-hangi-ilceler-il-olacak-bahcelinin-100-il-1000-ilce-projesinin-ayrintilari-belli-oldu-4274809" target="_blank" rel="noopener">gzt.com, 2 Kasım 2026</a>). Bu resmî bir liste değil, karşılaştırma için kullanılıyor.</p>
+      <div class="compare" id="karsilastirma"></div>
+    </section>
+
+    <section class="block method">
+      <h2>Yöntem</h2>
+      <ol class="steps">
+        <li><b>Kent çekirdeği.</b> İl merkezine yol mesafesi 30 km'den az olan ilçeler ve merkeze 20 dakikadan yakın, kilometrekarede 500 kişiden yoğun ilçeler ana ilde kalır.</li>
+        <li><b>Hinterland.</b> Bir aday il olursa, kendisine eski il merkezinden daha kısa sürede ulaşılan ilçeler ona bağlanır. Yeni il en az 150 bin kişiyi kapsamalı, geride kalan il 250 binin altına düşmemeli.</li>
+        <li><b>Puan.</b> Yeni ilin toplam nüfusu, ilçenin kendi nüfusu, il merkezine sürüş süresi ve SEGE-2022 gelişmişlik skoru 0–1 arasına ölçeklenip ağırlıklarla toplanır.</li>
+        <li><b>Seçim.</b> Her turda koşulları sağlayan en yüksek puanlı aday il olur, ilçeler en yakın merkeze yeniden dağıtılır. 19 il seçilene kadar sürer.</li>
+      </ol>
+      <p class="note">Model ilçeleri yalnızca kendi ili içinde dağıtır, il sınırı aşan birleşmeleri (ör. komşu ilden ilçe alma) değerlendirmez. Yol süreleri trafiksiz OSRM tahminidir. Bölgesel denge, güvenlik, tarih ve kimlik gibi ölçütler veriye girmez.</p>
+      <h3>Kaynaklar</h3>
+      <ul class="sources">
+        <li>Nüfus: TÜİK Adrese Dayalı Nüfus Kayıt Sistemi 2025</li>
+        <li>Gelişmişlik: Sanayi ve Teknoloji Bakanlığı, İlçelerin Sosyo-Ekonomik Gelişmişlik Sıralaması (SEGE-2022)</li>
+        <li>Sınırlar: geoBoundaries (CC BY 4.0)</li>
+        <li>Yol süreleri: OSRM, OpenStreetMap katkıcıları</li>
+      </ul>
+      <h3>Veri kontrolleri</h3>
+      <p class="note">973 ilçe merkezinin her biri kendi ilçe poligonunun içinde. Kaynak tabloda hatalı olan 10 koordinat (Yüksekova, Defne, Çaldıran gibi) düzeltildi. Yol tablosunda yoldan 2 km'den uzağa oturan noktalar ve fiziksel olarak imkânsız çiftler (yol mesafesi kuş uçuşundan kısa ya da ortalama hız saatte 25 km'nin altında) tek tek rota sorgusuyla yeniden hesaplandı. Toplam nüfus TÜİK'in açıkladığı 86.092.168 ile 9 kişi farkla örtüşüyor.</p>
+      <p class="sign">Hazırlayan: Hamza Yiğit Ulukan, Harita Mühendisi</p>
+    </section>
+  </aside>
+
+  <main class="map-wrap">
+    <div id="map" aria-label="Türkiye 100 il haritası"></div>
+    <div class="legend" id="lejant">
+      <span><i class="sw sw-new"></i>Yeni il</span>
+      <span><i class="sw sw-old"></i>Mevcut il</span>
+      <span><i class="sw sw-line"></i>Yeni çizilen sınır</span>
+      <span class="lg-press"><i class="sw sw-press"></i>Basın listesi</span>
+    </div>
+    <div class="card" id="kart" hidden></div>
+    <div class="loading" id="yukleniyor">Harita yükleniyor</div>
+  </main>
+</div>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="model.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

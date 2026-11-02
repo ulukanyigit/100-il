@@ -1,0 +1,20 @@
+sira,id,il,ilce,nufus,il_merkez_dk,sege,hinter_nufus,hinter_ilce,hinter_liste,parent_kalan,puan,s_hinter,s_own,s_dist,s_sege,basin_listesi,plaka,saglamlik
+1,92,Antalya,Alanya,371547,104.9,1.676,427397,2,Gazipaşa,1915920,68.4,0.663,0.84,0.499,0.794,True,83,0.981
+2,616,Kocaeli,Gebze,414960,37.9,2.334,927697,5,"Çayırova, Darıca, Dilovası, Karamürsel",1233474,72.0,0.97,0.877,0.053,0.958,False,92,0.994
+3,720,Muğla,Bodrum,207196,99.1,2.483,359471,2,Milas,375065,65.2,0.595,0.645,0.461,0.996,False,85,1.0
+4,878,Tekirdağ,Çorlu,306939,37.0,1.577,409210,3,"Ergene, Marmaraereğlisi",371279,54.7,0.646,0.776,0.047,0.769,True,87,0.89
+5,723,Muğla,Fethiye,187332,107.7,1.522,365011,4,"Dalaman, Ortaca, Seydikemer",375065,61.3,0.601,0.611,0.518,0.756,True,91,0.999
+6,106,Antalya,Manavgat,266480,61.2,1.538,434360,5,"Akseki, Gündoğmuş, İbradı, Serik",1915920,58.4,0.67,0.729,0.208,0.76,True,96,1.0
+7,681,Manisa,Akhisar,181472,51.1,0.543,369619,5,"Gölmarmara, Gördes, Kırkağaç, Soma",676738,47.0,0.606,0.601,0.141,0.511,False,82,0.775
+8,423,Hatay,İskenderun,228149,46.9,1.056,601722,6,"Arsuz, Belen, Dörtyol, Erzin, Payas",975809,57.1,0.799,0.677,0.113,0.639,True,94,0.871
+9,514,İzmir,Torbalı,224133,39.0,0.927,578045,7,"Bayındır, Beydağ, Kiraz, Ödemiş, Selçuk, Tire",3371736,54.5,0.783,0.671,0.06,0.607,False,100,0.722
+10,877,Tekirdağ,Çerkezköy,223975,56.3,1.034,427952,3,"Kapaklı, Saray",371279,53.7,0.664,0.671,0.175,0.634,False,86,0.994
+11,221,Bursa,İnegöl,306004,45.8,1.018,413212,4,"Harmancık, İznik, Yenişehir",2849799,53.5,0.65,0.775,0.105,0.63,False,93,0.907
+12,508,İzmir,Menemen,220510,35.9,0.838,554404,6,"Aliağa, Bergama, Dikili, Foça, Kınık",3371736,52.8,0.766,0.666,0.039,0.584,False,97,0.437
+13,477,İstanbul,Silivri,240029,54.9,1.312,321172,2,Çatalca,15432881,51.4,0.55,0.694,0.166,0.703,False,99,0.918
+14,148,Balıkesir,Edremit,176251,61.2,1.072,367608,5,"Ayvalık, Burhaniye, Gömeç, Havran",610146,51.0,0.604,0.591,0.208,0.643,True,88,0.695
+15,144,Balıkesir,Bandırma,169476,74.5,1.072,306763,5,"Erdek, Gönen, Manyas, Marmara",610146,50.5,0.532,0.578,0.297,0.643,True,84,0.872
+16,689,Manisa,Salihli,165007,61.1,0.616,431399,8,"Ahmetli, Alaşehir, Demirci, Köprübaşı, Kula, Sarıgöl, Selendi",676738,50.5,0.667,0.569,0.207,0.529,False,98,0.596
+17,135,Aydın,Kuşadası,141431,50.4,1.495,368415,3,"Didim, Söke",803692,49.9,0.605,0.518,0.136,0.749,False,95,0.685
+18,521,Kahramanmaraş,Elbistan,132036,115.6,0.13,282876,5,"Afşin, Ekinözü, Göksun, Nurhak",863402,49.8,0.5,0.495,0.571,0.408,True,89,0.589
+19,636,Konya,Ereğli,158010,107.2,0.453,221360,4,"Emirgazi, Halkapınar, Karapınar",2122049,47.8,0.403,0.555,0.515,0.488,False,90,0.641

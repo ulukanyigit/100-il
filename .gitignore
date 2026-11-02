@@ -1,0 +1,10 @@
+# ham veri: scripts/01_veri_toplama.py yeniden indirir
+data/raw/
+# çalışma günlükleri ve önbellek
+data/processed/*log*.txt
+data/processed/osrm_onbellek.json
+__pycache__/
+*.pyc
+*.qgz~
+.DS_Store
+Thumbs.db
