@@ -15,6 +15,12 @@
   const D = IlModel.prepare(veri);
   const I = D.I, iller = D.iller;
   const ilAdi = (id) => iller[I.il[id]];
+  // yeni il merkezi = ilçe belediye binası (OSM); bulunamazsa ilçe merkezi
+  const BEL = veri.belediye || [];
+  const belLL = (id) => (BEL[id] ? [BEL[id][1], BEL[id][0]] : [I.lon[id], I.lat[id]]);
+  const belAd = (id) => (BEL[id] && BEL[id][2]) || `${I.ad[id]} ilçe merkezi`;
+  const belKes = (id) => (BEL[id] ? BEL[id][4] : 0);
+  const belOsm = (id) => (BEL[id] && BEL[id][3]) || null;
 
   // ---------- kontroller ----------
   const W = [
@@ -113,6 +119,8 @@
   map.addSource("ilB", { type: "geojson", data: emptyFC() });
   map.addSource("newB", { type: "geojson", data: emptyFC() });
   map.addSource("basin", { type: "geojson", data: pressPoints() });
+  map.addSource("merkez", { type: "geojson", data: emptyFC() });
+  map.addSource("eskiMerkez", { type: "geojson", data: { type: "FeatureCollection", features: (veri.il_merkez || []).map((c, k) => ({ type: "Feature", properties: { il: iller[k] }, geometry: { type: "Point", coordinates: [c[1], c[0]] } })) } });
 
   map.addLayer({ id: "fill", type: "fill", source: "ilce", paint: {
     "fill-color": ["case",
@@ -128,6 +136,18 @@
   map.addLayer({ id: "basin", type: "circle", source: "basin", paint: {
     "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.6, 8, 7], "circle-color": css("--press"),
     "circle-stroke-color": "#121212", "circle-stroke-width": 2 } });
+  // mevcut 81 il merkezi: küçük siyah kare
+  map.addLayer({ id: "eskiMerkez", type: "circle", source: "eskiMerkez", paint: {
+    "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 2.2, 8, 4.5], "circle-color": css("--line"),
+    "circle-stroke-color": css("--land"), "circle-stroke-width": 1 } });
+  // yeni il merkezi (belediye binası): beyaz halka + kalın siyah çerçeve + kırmızı göbek
+  map.addLayer({ id: "merkezDis", type: "circle", source: "merkez", paint: {
+    "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 6, 8, 10, 12, 14], "circle-color": "#ffffff",
+    "circle-stroke-color": "#121212", "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 4, 2.5, 10, 4] } });
+  map.addLayer({ id: "merkezIc", type: "circle", source: "merkez", filter: ["!=", ["get", "k"], 0], paint: {
+    "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 2.6, 8, 4.5, 12, 6.5], "circle-color": "#d02020" } });
+  map.on("click", "merkezDis", (e) => { e.preventDefault(); openCard(e.features[0].properties.id, false); });
+  map.on("mouseenter", "merkezDis", () => (map.getCanvas().style.cursor = "pointer"));
   $("#yukleniyor").hidden = true;
 
   let hov = null;
@@ -138,7 +158,7 @@
     map.getCanvas().style.cursor = "pointer";
   });
   map.on("mouseleave", "fill", () => { if (hov !== null) map.setFeatureState({ source: "ilce", id: hov }, { hov: false }); hov = null; map.getCanvas().style.cursor = ""; });
-  map.on("click", "fill", (e) => openCard(e.features[0].id, false));
+  map.on("click", "fill", (e) => { if (e.defaultPrevented) return; openCard(e.features[0].id, false); });
 
   $("#basinGoster").addEventListener("change", (e) => {
     map.setLayoutProperty("basin", "visibility", e.target.checked ? "visible" : "none");
@@ -174,6 +194,7 @@
     const key = (f) => { const j = f.properties.i, c = res.final[j]; return c === null || !visible.has(c) ? "P" + I.il[j] : "N" + c; };
     map.getSource("ilB").setData(topojson.mesh(topo, topo.objects.ilce, (a, b) => a === b || key(a) !== key(b)));
     map.getSource("newB").setData(topojson.mesh(topo, topo.objects.ilce, (a, b) => a !== b && I.il[a.properties.i] === I.il[b.properties.i] && key(a) !== key(b)));
+    map.getSource("merkez").setData({ type: "FeatureCollection", features: res.sel.filter((s) => visible.has(s.id)).map((s) => ({ type: "Feature", properties: { id: s.id, k: belKes(s.id) }, geometry: { type: "Point", coordinates: belLL(s.id) } })) });
     drawMarkers(visible);
     $("#ilSayisi").textContent = 81 + visible.size;
     if (upto === undefined) { renderList(); renderCompare(); if (selected !== null) openCard(selected, true); }
@@ -187,8 +208,9 @@
       el.className = "mk"; el.type = "button"; el.setAttribute("aria-label", `${I.ad[s.id]}, plaka ${plateOf.get(s.id)}`);
       el.innerHTML = `<span class="plate"><span class="plate-tr">TR</span><span class="plate-num">${plateOf.get(s.id)}</span></span>`;
       el.addEventListener("click", (e) => { e.stopPropagation(); openCard(s.id, false); });
-      const m = new maplibregl.Marker({ element: el, anchor: "center" }).setLngLat([I.lon[s.id], I.lat[s.id]]).addTo(map);
-      m._ll = [I.lon[s.id], I.lat[s.id]];
+      const ll = belLL(s.id);
+      const m = new maplibregl.Marker({ element: el, anchor: "bottom", offset: [0, -9] }).setLngLat(ll).addTo(map);
+      m._ll = ll;
       markers.push(m);
     }
     declutter();
@@ -204,7 +226,7 @@
       if (dy === undefined) { el.style.visibility = "hidden"; continue; }
       el.style.visibility = "";
       boxes.push({ x: p.x, y: p.y + dy });
-      m.setOffset([0, dy]);
+      m.setOffset([0, dy - 9]);
     }
   }
   map.on("zoomend", declutter);
@@ -284,6 +306,8 @@
           <dt>Model puanı</dt><dd>${s.puan.toLocaleString("tr-TR")}</dd>
           <dt>1000 senaryoda seçilme</dt><dd>%${r}</dd>
         </dl>
+        <div class="seat"><i class="seat-ico" aria-hidden="true"></i><div><b>Yeni il merkezi:</b> ${belAd(j)}
+          <small>${belKes(j) === 1 ? "Konum: OpenStreetMap'teki belediye binası" : belKes(j) === 2 ? "Konum: OpenStreetMap'teki belediye ek hizmet binası ya da yakın belediye kaydı" : "Belediye binası OpenStreetMap'te bulunamadı; ilçe merkezi koordinatı gösteriliyor (haritada göbeksiz halka)"}${belOsm(j) ? `. <a href="https://www.openstreetmap.org/${belOsm(j)}" target="_blank" rel="noopener">OSM'de aç</a>` : ""}</small></div></div>
         <p class="members"><b>Bağlanan ilçeler:</b> ${others.length ? others.join(", ") : "yalnızca kendisi"}</p>`;
     } else {
       const newIl = c === null ? ilAdi(j) : I.ad[c];

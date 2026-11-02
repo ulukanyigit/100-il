@@ -2,10 +2,6 @@
 
 **Türkiye 100 il olsaydı, veri hangi 19 ilçeyi seçerdi?**
 
-**Canlı harita:** https://ulukanyigit.github.io/100-il/
-
-![100 il haritası, varsayılan senaryo](100il_qgis_onizleme.png)
-
 “100 il, 1000 ilçe” önerisinde il olacak ilçelerin kesin listesi açıklanmadı. Bu proje Türkiye'nin 973 ilçesini nüfus, il merkezine yol süresi ve gelişmişlik verisiyle tartıp 19 yeni ili kendisi seçer. Web uygulamasında ağırlıkları değiştirdiğinizde model tarayıcıda yeniden çalışır ve harita yeniden çizilir.
 
 *What if Türkiye had 100 provinces? A data-driven model that scores all 973 districts on population, drive time to the provincial capital (OSRM) and socio-economic development (SEGE-2022), then picks 19 new provinces. Interactive web map with live re-weighting.*
@@ -43,6 +39,7 @@
 3. **Koşullar:** Yeni il ≥150 bin nüfus, geride kalan il ≥250 bin nüfus, aday ilçe ≥40 bin nüfus.
 4. **Puan (0–100):** yeni ilin toplam nüfusu (%35, log), ilçenin kendi nüfusu (%20, log), il merkezine sürüş süresi (%25, 30–180 dk), SEGE-2022 skoru (%20).
 5. **Seçim:** Her turda koşulları sağlayan en yüksek puanlı aday il olur, ilçeler en yakın merkeze yeniden dağıtılır, 19 il seçilene kadar sürer.
+6. **Yeni il merkezi:** İl olan ilçenin belediye binası (OpenStreetMap) yeni il merkezi olarak gösterilir. Varsayılan 19 ilin 18'inde ana belediye binası, İnegöl'de belediye ek hizmet binası kullanılıyor. 1000 senaryoda en az bir kez seçilen 55 ilçenin 11'inde belediye binası OSM'de olmadığı için ilçe merkezi gösteriliyor (`scripts/07_belediye_eslestir.py`, `data/processed/belediye_eslesme.csv`).
 
 **Sınırlar:** Yol süreleri trafiksiz OSRM tahminidir. İl sınırını aşan düzenlemeler, bölgesel denge, güvenlik, tarih ve kimlik gibi ölçütler modele girmez. Basındaki liste resmî değildir, yalnızca karşılaştırma için kullanılır.
 
@@ -65,15 +62,16 @@ scripts/01_veri_toplama.py   sınırlar, nüfus, koordinatlar, il merkezine OSRM
 scripts/02_osrm_matris.py    il içi ilçe→ilçe sürüş süresi matrisi (QGIS konsolunda arka planda)
 scripts/03_birlestir.py      SEGE eşleştirme, poligon bağlama, alan
 scripts/04_koordinat_duzelt.py hatalı koordinatlar sonrası OSRM yeniden hesap (06 ile değiştirildi)
+scripts/07_belediye_eslestir.py belediye binası konumları (OSM Overpass + Nominatim)
 scripts/06_osrm_dogrulamali.py doğrulamalı OSRM: snap > 2 km ve imkânsız çiftler 2 noktalı rota ile yeniden (368 çift)
 scripts/05_web_veri.py       web veri paketi ve sonuç katmanları
 scripts/model.py             referans model (Python) → adaylar.csv, secim.csv, atama.csv
 scripts/mc.js                1000 senaryoluk sağlamlık analizi (Node)
 data/processed/              ilceler.gpkg, iller_100.gpkg, tablolar
-docs/                        statik site (GitHub Pages) (MapLibre GL + TopoJSON); model.js Python modeliyle birebir aynı sonucu verir
+web/                         statik site (MapLibre GL + TopoJSON); model.js Python modeliyle birebir aynı sonucu verir
 100il.qgz                    QGIS projesi
 ```
 
-Python betikleri `data/processed` klasöründen çalıştırılır (`python ../../scripts/model.py`). Web sürümünü yerelde açmak için: `cd docs && python -m http.server` ve tarayıcıda `localhost:8000`.
+Web sürümünü yerelde açmak için: `cd web && python -m http.server` ve tarayıcıda `localhost:8000`.
 
 Hazırlayan: Hamza Yiğit Ulukan, Harita Mühendisi

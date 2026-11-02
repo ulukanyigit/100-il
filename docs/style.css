@@ -141,6 +141,10 @@ input[type=range]:focus-visible { outline: 3px solid var(--focus); outline-offse
 .card dt { color: var(--muted); }
 .card dd { margin: 0; font-weight: 900; text-align: right; font-variant-numeric: tabular-nums; }
 .card .members { font-size: .86rem; margin: 10px 0 0; line-height: 1.45; }
+.card .seat { display: flex; gap: 10px; align-items: flex-start; margin: 12px 0 0; padding: 10px 12px; border: var(--bw) solid var(--rule); font-size: .88rem; line-height: 1.35; }
+.card .seat small { display: block; color: var(--muted); font-size: .78rem; margin-top: 3px; }
+.seat-ico, .sw-seat { flex: none; display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle, #d02020 0 32%, #fff 34%); border: 3px solid #121212; box-sizing: border-box; margin-top: 1px; }
+.sw-old-seat { width: 9px; height: 9px; border-radius: 50%; background: var(--line); border: 1px solid var(--land); }
 .card .verdict { margin: 10px 0 0; padding: 10px 12px; background: var(--yellow); color: #121212; border: var(--bw) solid #121212; font-size: .88rem; }
 
 /* ---------- diyaloglar ---------- */
