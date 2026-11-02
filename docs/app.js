@@ -15,12 +15,26 @@
   const D = IlModel.prepare(veri);
   const I = D.I, iller = D.iller;
   const ilAdi = (id) => iller[I.il[id]];
-  // yeni il merkezi = ilçe belediye binası (OSM); bulunamazsa ilçe merkezi
+  // yeni il merkezi = ilçe belediye binası (OSM, yoksa belediyenin resmî sitesi); bulunamazsa ilçe merkezi
   const BEL = veri.belediye || [];
   const belLL = (id) => (BEL[id] ? [BEL[id][1], BEL[id][0]] : [I.lon[id], I.lat[id]]);
-  const belAd = (id) => (BEL[id] && BEL[id][2]) || `${I.ad[id]} ilçe merkezi`;
+  const belAd = (id) => { const a = BEL[id] && BEL[id][2]; return !a ? `${I.ad[id]} ilçe merkezi` : /^belediye/i.test(a) ? `${I.ad[id]} ${a}` : a; };
   const belKes = (id) => (BEL[id] ? BEL[id][4] : 0);
-  const belOsm = (id) => (BEL[id] && BEL[id][3]) || null;
+  const belUrl = (id) => (BEL[id] && BEL[id][3]) || null;
+  const belTur = (id) => (BEL[id] && BEL[id][5]) || "yok";
+  const KAYNAK_METNI = {
+    osm: "Konum: OpenStreetMap'teki belediye binası",
+    "osm-yakin": "Konum: OpenStreetMap'te merkeze yakın belediye kaydı",
+    "osm-ek": "Konum: OpenStreetMap'teki belediye ek hizmet binası",
+    site: "Konum: belediyenin resmî sitesindeki harita",
+    "adres-sokak": "Konum: belediyenin resmî sitesindeki adres, sokak düzeyinde",
+    "adres-mahalle": "Konum: belediyenin resmî sitesindeki adres, mahalle düzeyinde (yaklaşık)",
+    yok: "Belediye binasının konumu bulunamadı; ilçe merkezi koordinatı gösteriliyor (haritada göbeksiz halka)",
+  };
+  const kaynakLink = (u) => {
+    if (!u) return "";
+    try { const h = new URL(u).hostname.replace(/^www\./, ""); return `. <a href="${u}" target="_blank" rel="noopener">${h.includes("openstreetmap") ? "OSM'de aç" : h}</a>`; } catch { return ""; }
+  };
 
   // ---------- kontroller ----------
   const W = [
@@ -307,7 +321,7 @@
           <dt>1000 senaryoda seçilme</dt><dd>%${r}</dd>
         </dl>
         <div class="seat"><i class="seat-ico" aria-hidden="true"></i><div><b>Yeni il merkezi:</b> ${belAd(j)}
-          <small>${belKes(j) === 1 ? "Konum: OpenStreetMap'teki belediye binası" : belKes(j) === 2 ? "Konum: OpenStreetMap'teki belediye ek hizmet binası ya da yakın belediye kaydı" : "Belediye binası OpenStreetMap'te bulunamadı; ilçe merkezi koordinatı gösteriliyor (haritada göbeksiz halka)"}${belOsm(j) ? `. <a href="https://www.openstreetmap.org/${belOsm(j)}" target="_blank" rel="noopener">OSM'de aç</a>` : ""}</small></div></div>
+          <small>${KAYNAK_METNI[belTur(j)] || KAYNAK_METNI.yok}${kaynakLink(belUrl(j))}</small></div></div>
         <p class="members"><b>Bağlanan ilçeler:</b> ${others.length ? others.join(", ") : "yalnızca kendisi"}</p>`;
     } else {
       const newIl = c === null ? ilAdi(j) : I.ad[c];

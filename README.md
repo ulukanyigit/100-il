@@ -39,7 +39,7 @@
 3. **Koşullar:** Yeni il ≥150 bin nüfus, geride kalan il ≥250 bin nüfus, aday ilçe ≥40 bin nüfus.
 4. **Puan (0–100):** yeni ilin toplam nüfusu (%35, log), ilçenin kendi nüfusu (%20, log), il merkezine sürüş süresi (%25, 30–180 dk), SEGE-2022 skoru (%20).
 5. **Seçim:** Her turda koşulları sağlayan en yüksek puanlı aday il olur, ilçeler en yakın merkeze yeniden dağıtılır, 19 il seçilene kadar sürer.
-6. **Yeni il merkezi:** İl olan ilçenin belediye binası (OpenStreetMap) yeni il merkezi olarak gösterilir. Varsayılan 19 ilin 18'inde ana belediye binası, İnegöl'de belediye ek hizmet binası kullanılıyor. 1000 senaryoda en az bir kez seçilen 55 ilçenin 11'inde belediye binası OSM'de olmadığı için ilçe merkezi gösteriliyor (`scripts/07_belediye_eslestir.py`, `data/processed/belediye_eslesme.csv`).
+6. **Yeni il merkezi:** İl olan ilçenin belediye binası yeni il merkezi olarak gösterilir. Konum önce OpenStreetMap'ten alınır; OSM'de kaydı olmayan belediyeler için belediyenin resmî sitesindeki (*.bel.tr) harita ya da adres kullanılır (adres, Nominatim ile koordinata çevrilir). Varsayılan 19 ilin 18'inde ana belediye binası, İnegöl'de ek hizmet binası kullanılıyor. 1000 senaryoda en az bir kez seçilen 55 ilçenin 41'i OSM'de tam eşleşti, 8'i resmî siteden bulundu (Payas, Arsuz, Tire haritadan; Dörtyol sokak, Gönen, Finike, Erzin, Kiraz mahalle düzeyinde). Kırıkhan, Urla ve Ceylanpınar'da güvenilir konum bulunamadığı için ilçe merkezi gösteriliyor. Google Maps verisi kullanılmadı: kullanım koşulları otomatik çekmeye ve açık bir depoda yeniden yayına izin vermiyor (`scripts/07_belediye_eslestir.py`, `scripts/08_belediye_resmi_site.py`, `data/processed/belediye_eslesme.csv`).
 
 **Sınırlar:** Yol süreleri trafiksiz OSRM tahminidir. İl sınırını aşan düzenlemeler, bölgesel denge, güvenlik, tarih ve kimlik gibi ölçütler modele girmez. Basındaki liste resmî değildir, yalnızca karşılaştırma için kullanılır.
 
@@ -51,6 +51,7 @@
 | Gelişmişlik | Sanayi ve Teknoloji Bakanlığı, SEGE-2022 ilçe skorları |
 | Sınırlar | geoBoundaries gbOpen TUR ADM1/ADM2 (CC BY 4.0) |
 | Yol süreleri | OSRM public demo, © OpenStreetMap katkıcıları; demo tablo servisinin hatalı snap ettiği 368 çift tek tek rota sorgusuyla düzeltildi |
+| Belediye binaları | OpenStreetMap (Overpass, Nominatim), belediyelerin resmî siteleri (*.bel.tr) |
 | İl merkezleri | Wikidata (P36) / il ile aynı adlı merkez ilçe |
 | Koordinat düzeltmeleri | Tablodaki 10 hatalı ilçe merkezi (Çamlıyayla, Adilcevaz, Çaldıran, Selendi, Kale, Kartepe, Defne, Yüksekova, Bağcılar, Gerede) elle düzeltildi; 973 merkezin tamamı kendi poligonunda |
 | Basın listesi | gzt.com, 2 Kasım 2026 |
@@ -63,6 +64,7 @@ scripts/02_osrm_matris.py    il içi ilçe→ilçe sürüş süresi matrisi (QGI
 scripts/03_birlestir.py      SEGE eşleştirme, poligon bağlama, alan
 scripts/04_koordinat_duzelt.py hatalı koordinatlar sonrası OSRM yeniden hesap (06 ile değiştirildi)
 scripts/07_belediye_eslestir.py belediye binası konumları (OSM Overpass + Nominatim)
+scripts/08_belediye_resmi_site.py OSM'de olmayan belediyeler için resmî site haritası/adresi
 scripts/06_osrm_dogrulamali.py doğrulamalı OSRM: snap > 2 km ve imkânsız çiftler 2 noktalı rota ile yeniden (368 çift)
 scripts/05_web_veri.py       web veri paketi ve sonuç katmanları
 scripts/model.py             referans model (Python) → adaylar.csv, secim.csv, atama.csv

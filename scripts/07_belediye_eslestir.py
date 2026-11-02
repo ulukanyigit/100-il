@@ -12,6 +12,7 @@ Eşleştirme (her ilçe için, ilçe poligonu + 1 km tampon içinde):
   3) eşitlikte amenity=townhall etiketi, sonra ilçe merkezine yakınlık
   4) hiçbiri yoksa: ilçe merkezine ≤3 km, adsız ve townhall:type belediye türünde kayıt
   5) o da yoksa ilçe merkezi koordinatı (bel_tur = "yok")
+  6) 3. tur 08_belediye_resmi_site.py: OSM'de bulunamayan adaylar için belediyenin resmî sitesindeki harita/adres
 Çıktı: belediye_eslesme.csv
 """
 import json

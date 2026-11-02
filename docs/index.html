@@ -103,7 +103,7 @@
     <li><b>Hinterland.</b> Bir aday il olursa, kendisine eski il merkezinden daha kısa sürede ulaşılan ilçeler ona bağlanır. Yeni il en az 150 bin kişiyi kapsamalı, geride kalan il 250 binin altına düşmemeli.</li>
     <li><b>Puan.</b> Yeni ilin toplam nüfusu, ilçenin kendi nüfusu, il merkezine sürüş süresi ve SEGE-2022 gelişmişlik skoru 0–1 arasına ölçeklenip ağırlıklarla toplanır.</li>
     <li><b>Seçim.</b> Her turda koşulları sağlayan en yüksek puanlı aday il olur, ilçeler en yakın merkeze yeniden dağıtılır. 19 il seçilene kadar sürer.</li>
-    <li><b>Yeni il merkezi.</b> İl olan ilçenin belediye binası, yeni ilin merkezi olarak gösterilir (kırmızı göbekli halka). Konum OpenStreetMap'teki belediye binasından alınır; ana bina yoksa merkeze 3 km'den yakın belediye ek hizmet binası kullanılır. OSM'de kaydı olmayan belediyelerde ilçe merkezi gösterilir (göbeksiz halka).</li>
+    <li><b>Yeni il merkezi.</b> İl olan ilçenin belediye binası, yeni ilin merkezi olarak gösterilir (kırmızı göbekli halka). Konum önce OpenStreetMap'teki belediye binasından alınır; ana bina yoksa merkeze 3 km'den yakın ek hizmet binası kullanılır. OSM'de kaydı olmayan belediyelerde belediyenin resmî sitesindeki harita ya da adres kullanılır. Hiçbiri yoksa ilçe merkezi gösterilir (göbeksiz halka).</li>
   </ol>
   <p class="note">Model ilçeleri yalnızca kendi ili içinde dağıtır, il sınırı aşan birleşmeleri (ör. komşu ilden ilçe alma) değerlendirmez. Yol süreleri trafiksiz OSRM tahminidir. Bölgesel denge, güvenlik, tarih ve kimlik gibi ölçütler veriye girmez.</p>
   <h3>Kaynaklar</h3>
@@ -112,7 +112,7 @@
     <li>Gelişmişlik: Sanayi ve Teknoloji Bakanlığı, İlçelerin Sosyo-Ekonomik Gelişmişlik Sıralaması (SEGE-2022)</li>
     <li>Sınırlar: geoBoundaries (CC BY 4.0)</li>
     <li>Yol süreleri: OSRM, OpenStreetMap katkıcıları</li>
-    <li>Belediye binaları ve mevcut il merkezleri: OpenStreetMap, Wikidata</li>
+    <li>Belediye binaları ve mevcut il merkezleri: OpenStreetMap, Wikidata, belediyelerin resmî siteleri (*.bel.tr)</li>
   </ul>
   <h3>Veri kontrolleri</h3>
   <p class="note">973 ilçe merkezinin her biri kendi ilçe poligonunun içinde. Kaynak tabloda hatalı olan 10 koordinat (Yüksekova, Defne, Çaldıran gibi) düzeltildi. Yol tablosunda yoldan 2 km'den uzağa oturan noktalar ve fiziksel olarak imkânsız çiftler tek tek rota sorgusuyla yeniden hesaplandı. Toplam nüfus TÜİK'in açıkladığı 86.092.168 ile 9 kişi farkla örtüşüyor.</p>

@@ -24,17 +24,21 @@ for il, g in t.groupby("il"):
     mat[il_idx[il]] = {"ids": ids, "dk": [[0 if a == b else (None if pd.isna(dk.get((a, b))) else dk[(a, b)])
                                           for b in ids] for a in ids]}
 # yeni il merkezi adayları: ilçe belediye binası (07_belediye_eslestir.py); mevcut il merkezleri
-TUR = {"ad": 1, "hizmet-binasi": 1, "genel-ad": 2, "isimsiz": 2, "ek-bina": 2, "nominatim": 1, "yok": 0}
+TUR = {"ad": 1, "hizmet-binasi": 1, "nominatim": 1, "site-harita": 1,
+       "genel-ad": 2, "isimsiz": 2, "ek-bina": 2, "adres-sokak": 2, "adres-mahalle": 2, "yok": 0}
+KAYNAK = {"ad": "osm", "hizmet-binasi": "osm", "nominatim": "osm", "genel-ad": "osm-yakin", "isimsiz": "osm-yakin",
+          "ek-bina": "osm-ek", "site-harita": "site", "adres-sokak": "adres-sokak", "adres-mahalle": "adres-mahalle", "yok": "yok"}
 bel = pd.read_csv("belediye_eslesme.csv").set_index("id").reindex(t.id)
 belediye = [[round(float(r.bel_lat), 6), round(float(r.bel_lon), 6), (r.bel_ad if isinstance(r.bel_ad, str) else None),
-             (r.bel_osm if isinstance(r.bel_osm, str) else None), TUR[r.bel_tur]] for r in bel.itertuples()]
+             (r.bel_kaynak if isinstance(r.bel_kaynak, str) else None), TUR[r.bel_tur], KAYNAK[r.bel_tur]]
+            for r in bel.itertuples()]
 mc = pd.read_csv("il_merkezleri.csv").set_index("il")
 il_merkez = [[round(float(mc.at[il, "merkez_lat"]), 5), round(float(mc.at[il, "merkez_lon"]), 5)] for il in il_list]
 out = {"meta": {"olusturma": "2026-11-02", "nufus": "TÜİK ADNKS 2025", "sege": "SEGE-2022", "yol": "OSRM (trafiksiz)"},
        "iller": il_list,
        "alanlar": ["id", "il", "ilce", "nufus", "merkez_dk", "merkez_km", "sege", "sege_sira", "alan", "lat", "lon", "basin"],
        "ilceler": ilce, "matris": mat,
-       "belediye_alanlar": ["lat", "lon", "ad", "osm", "kesinlik(1=OSM belediye binası, 2=OSM yakın kayıt, 0=yok: ilçe merkezi)"],
+       "belediye_alanlar": ["lat", "lon", "ad", "kaynak_url", "kesinlik(1=bina, 2=yaklaşık, 0=yok: ilçe merkezi)", "kaynak_turu"],
        "belediye": belediye, "il_merkez": il_merkez}
 open("../../docs/data/veri.json", "w", encoding="utf-8").write(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
 
