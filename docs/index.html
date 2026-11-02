@@ -5,29 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>100 İl Haritası</title>
 <meta name="description" content="Türkiye 100 il olsaydı, veri hangi 19 ilçeyi seçerdi? TÜİK 2025 nüfusu, il merkezine yol süresi ve SEGE-2022 ile 973 ilçeyi tartan etkileşimli harita.">
-<meta property="og:title" content="100 İl Haritası — veri hangi 19 ilçeyi seçerdi?">
+<meta property="og:title" content="100 İl Haritası: veri hangi 19 ilçeyi seçerdi?">
 <meta property="og:description" content="973 ilçe, 4 ölçüt, 1000 senaryo. Ağırlıkları değiştir, Türkiye haritası yeniden çizilsin.">
+<meta name="theme-color" content="#F0C020">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
 <link href="style.css" rel="stylesheet">
 </head>
 <body>
+<a class="skip" href="#ayarlar">Ayarlara geç</a>
 <div class="app">
   <aside class="panel" id="panel">
-    <header class="hero">
-      <div class="plate plate-hero" aria-label="İl sayısı">
-        <span class="plate-tr">TR</span>
-        <span class="plate-num" id="ilSayisi">81</span>
-        <span class="plate-word">il</span>
-      </div>
+    <header class="poster">
+      <div class="geo" aria-hidden="true"><i class="g-circle"></i><i class="g-square"></i><i class="g-bar"></i></div>
+      <p class="count-big" aria-live="polite"><span id="ilSayisi">81</span><small>il</small></p>
       <h1>Türkiye 100 il olsaydı, veri hangi ilçeleri seçerdi?</h1>
-      <p class="lead">“100 il, 1000 ilçe” önerisinde il olacak 19 ilçenin kesin listesi henüz açıklanmadı. Bu harita 973 ilçeyi nüfus, il merkezine uzaklık ve gelişmişlik verisiyle tartıyor ve 19 yeni ili kendisi seçiyor. Ağırlıkları değiştirdiğinde harita yeniden çizilir.</p>
     </header>
+    <p class="lead">“100 il, 1000 ilçe” önerisinde il olacak 19 ilçenin kesin listesi henüz açıklanmadı. Bu harita 973 ilçeyi nüfus, il merkezine uzaklık ve gelişmişlik verisiyle tartıyor ve 19 yeni ili kendisi seçiyor. Ağırlıkları değiştirdiğinde harita yeniden çizilir.</p>
 
-    <section class="block">
-      <h2>Neye önem verelim?</h2>
+    <section class="block" id="ayarlar">
+      <h2><i class="mk-shape s-circle" aria-hidden="true"></i>Neye önem verelim?</h2>
       <div class="chips" id="senaryolar" role="group" aria-label="Hazır senaryolar"></div>
       <div class="sliders" id="agirliklar"></div>
       <details class="rules">
@@ -39,24 +38,24 @@
 
     <section class="block">
       <div class="block-head">
-        <h2>Seçilen yeni iller</h2>
+        <h2><i class="mk-shape s-square" aria-hidden="true"></i>Seçilen yeni iller</h2>
         <span class="count" id="secimSayisi"></span>
       </div>
-      <p class="note">Plaka kodları, il adlarının alfabetik sırasına göre 82'den başlar. Çubuk, ilçenin 1000 rastgele ağırlık senaryosunun yüzde kaçında seçildiğini gösterir.</p>
+      <p class="note">Plaka kodları il adlarının alfabetik sırasına göre 82'den başlar. On kare, ilçenin 1000 rastgele ağırlık senaryosunun kaçında seçildiğini gösterir; her kare yüzde 10.</p>
       <ol class="plates" id="liste"></ol>
     </section>
 
-    <section class="block">
+    <section class="block block-blue">
       <div class="block-head">
-        <h2>Basında dolaşan listeyle karşılaştırma</h2>
+        <h2><i class="mk-shape s-tri" aria-hidden="true"></i>Basındaki listeyle karşılaştırma</h2>
         <label class="toggle"><input type="checkbox" id="basinGoster" checked> Haritada göster</label>
       </div>
-      <p class="note">Basında 19 ilçelik bir aday listesi yer aldı (<a href="https://www.gzt.com/gundem/turkiyede-19-ilce-il-mi-oluyor-hangi-ilceler-il-olacak-bahcelinin-100-il-1000-ilce-projesinin-ayrintilari-belli-oldu-4274809" target="_blank" rel="noopener">gzt.com, 2 Kasım 2026</a>). Bu resmî bir liste değil, karşılaştırma için kullanılıyor.</p>
+      <p class="note">Basında 19 ilçelik bir aday listesi yer aldı (<a href="https://www.gzt.com/gundem/turkiyede-19-ilce-il-mi-oluyor-hangi-ilceler-il-olacak-bahcelinin-100-il-1000-ilce-projesinin-ayrintilari-belli-oldu-4274809" target="_blank" rel="noopener">gzt.com, 2 Kasım 2026</a>). Resmî bir liste değil, karşılaştırma için kullanılıyor.</p>
       <div class="compare" id="karsilastirma"></div>
     </section>
 
     <section class="block method">
-      <h2>Yöntem</h2>
+      <h2><i class="mk-shape s-circle s-blue" aria-hidden="true"></i>Yöntem</h2>
       <ol class="steps">
         <li><b>Kent çekirdeği.</b> İl merkezine yol mesafesi 30 km'den az olan ilçeler ve merkeze 20 dakikadan yakın, kilometrekarede 500 kişiden yoğun ilçeler ana ilde kalır.</li>
         <li><b>Hinterland.</b> Bir aday il olursa, kendisine eski il merkezinden daha kısa sürede ulaşılan ilçeler ona bağlanır. Yeni il en az 150 bin kişiyi kapsamalı, geride kalan il 250 binin altına düşmemeli.</li>
@@ -73,7 +72,7 @@
       </ul>
       <h3>Veri kontrolleri</h3>
       <p class="note">973 ilçe merkezinin her biri kendi ilçe poligonunun içinde. Kaynak tabloda hatalı olan 10 koordinat (Yüksekova, Defne, Çaldıran gibi) düzeltildi. Yol tablosunda yoldan 2 km'den uzağa oturan noktalar ve fiziksel olarak imkânsız çiftler (yol mesafesi kuş uçuşundan kısa ya da ortalama hız saatte 25 km'nin altında) tek tek rota sorgusuyla yeniden hesaplandı. Toplam nüfus TÜİK'in açıkladığı 86.092.168 ile 9 kişi farkla örtüşüyor.</p>
-      <p class="sign">Hazırlayan: Hamza Yiğit Ulukan, Harita Mühendisi</p>
+      <p class="sign">Hazırlayan: Hamza Yiğit Ulukan, Harita Mühendisi. Kaynak kod: <a href="https://github.com/ulukanyigit/100-il" target="_blank" rel="noopener">github.com/ulukanyigit/100-il</a></p>
     </section>
   </aside>
 

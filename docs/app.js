@@ -55,7 +55,7 @@
     d.innerHTML = `<label for="${k}"><span>${ad}</span><output for="${k}"></output></label>
       <input type="range" id="${k}" min="${min}" max="${max}" step="${step}" value="${state[k]}">${alt ? `<small>${alt}</small>` : ""}`;
     const inp = d.querySelector("input"), out = d.querySelector("output");
-    const show = () => (out.textContent = unit(+inp.value));
+    const show = () => { out.textContent = unit(+inp.value); inp.style.setProperty("--fill", (100 * (inp.value - min) / (max - min)) + "%"); };
     inp.addEventListener("input", () => { state[k] = +inp.value; show(); schedule(); });
     inp.addEventListener("sync", show);
     show();
@@ -86,7 +86,7 @@
 
   const map = new maplibregl.Map({
     container: "map",
-    style: { version: 8, sources: {}, layers: [{ id: "bg", type: "background", paint: { "background-color": css("--paper") } }] },
+    style: { version: 8, sources: {}, layers: [{ id: "bg", type: "background", paint: { "background-color": css("--sea") } }] },
     bounds: [[25.6, 35.8], [44.9, 42.15]],
     fitBoundsOptions: { padding: 24 },
     minZoom: 3, maxZoom: 10,
@@ -105,18 +105,18 @@
 
   map.addLayer({ id: "fill", type: "fill", source: "ilce", paint: {
     "fill-color": ["case",
-      ["boolean", ["feature-state", "sel"], false], css("--plate-hi"),
-      ["boolean", ["feature-state", "nw"], false], css("--plate"),
-      ["boolean", ["feature-state", "hov"], false], css("--land-edge"),
+      ["boolean", ["feature-state", "sel"], false], css("--new-hi"),
+      ["boolean", ["feature-state", "nw"], false], css("--new"),
+      ["boolean", ["feature-state", "hov"], false], css("--land-hover"),
       css("--land")],
-    "fill-opacity": ["case", ["boolean", ["feature-state", "nw"], false], ["case", ["boolean", ["feature-state", "ctr"], false], 1, 0.82], 1],
+    "fill-opacity": ["case", ["boolean", ["feature-state", "nw"], false], ["case", ["boolean", ["feature-state", "ctr"], false], 1, 0.86], 1],
   } });
-  map.addLayer({ id: "ilceB", type: "line", source: "ilceB", paint: { "line-color": css("--panel"), "line-width": 0.4, "line-opacity": 0.55 } });
-  map.addLayer({ id: "ilB", type: "line", source: "ilB", paint: { "line-color": css("--ink"), "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.7, 8, 1.6], "line-opacity": 0.7 } });
-  map.addLayer({ id: "newB", type: "line", source: "newB", layout: { "line-join": "round" }, paint: { "line-color": css("--plate"), "line-width": ["interpolate", ["linear"], ["zoom"], 4, 2, 8, 3.5] } });
+  map.addLayer({ id: "ilceB", type: "line", source: "ilceB", paint: { "line-color": css("--ilce-line"), "line-width": 0.5, "line-opacity": 0.9 } });
+  map.addLayer({ id: "ilB", type: "line", source: "ilB", paint: { "line-color": css("--line"), "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.9, 8, 2] } });
+  map.addLayer({ id: "newB", type: "line", source: "newB", layout: { "line-join": "round" }, paint: { "line-color": css("--line"), "line-width": ["interpolate", ["linear"], ["zoom"], 4, 2.4, 8, 4.5] } });
   map.addLayer({ id: "basin", type: "circle", source: "basin", paint: {
-    "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.6, 8, 7], "circle-color": css("--amber"),
-    "circle-stroke-color": css("--panel"), "circle-stroke-width": 1.5 } });
+    "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.6, 8, 7], "circle-color": css("--press"),
+    "circle-stroke-color": "#121212", "circle-stroke-width": 2 } });
   $("#yukleniyor").hidden = true;
 
   let hov = null;
@@ -210,7 +210,7 @@
         <span class="nm">${I.ad[s.id]}${I.basin[s.id] ? '<span class="press-dot" title="Basın listesinde"></span>' : ""}</span>
         <span class="pop">${fmtK(s.hpop)}</span>
         <span class="sub">${ilAdi(s.id)} ilinden, ${s.members.length} ilçe</span>
-        <span class="rob" title="Seçilme sıklığı: %${Math.round(r * 100)} (1000 senaryo)"><i style="--v:${Math.round(r * 100)}%"></i>%${Math.round(r * 100)}</span>
+        <span class="rob" role="img" aria-label="1000 senaryonun yüzde ${Math.round(r * 100)} kadarında seçildi" title="Seçilme sıklığı: %${Math.round(r * 100)} (1000 senaryo)">${Array.from({ length: 10 }, (_, q) => `<i class="${q < Math.round(r * 10) ? "on" : ""}"></i>`).join("")}</span>
       </button>`;
       li.querySelector("button").addEventListener("click", () => openCard(s.id, false));
       ol.append(li);
@@ -282,7 +282,6 @@
     }
     card.innerHTML = html; card.hidden = false;
     card.querySelector(".x").addEventListener("click", closeCard);
-    document.querySelectorAll(".plates button").forEach((b) => b.setAttribute("aria-current", "false"));
   }
   function closeCard() { $("#kart").hidden = true; selected = null; draw(); }
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#kart").hidden) closeCard(); });
