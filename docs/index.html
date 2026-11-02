@@ -34,6 +34,16 @@
     <div class="ctrl-body" id="ctrlBody">
       <div class="chips" id="senaryolar" role="group" aria-label="Hazır senaryolar"></div>
       <div class="sliders" id="agirliklar"></div>
+      <fieldset class="balance">
+        <legend>Bölgesel denge</legend>
+        <label class="sw-row" for="ilMax"><span>Her ilden en fazla 1 yeni il</span><input type="checkbox" id="ilMax" role="switch"></label>
+        <div class="seg-row"><span id="kotaLbl">Her bölgeden en az</span>
+          <div class="seg" id="kota" role="radiogroup" aria-labelledby="kotaLbl">
+            <button type="button" role="radio" data-k="0">Yok</button><button type="button" role="radio" data-k="1">1 il</button><button type="button" role="radio" data-k="2">2 il</button>
+          </div>
+        </div>
+        <div class="regions" aria-label="Yeni illerin bölgelere dağılımı"></div>
+      </fieldset>
       <details class="rules">
         <summary>Kurallar</summary>
         <div class="sliders" id="kurallar"></div>
@@ -47,6 +57,7 @@
       <h2 id="railBaslik"><i class="mk-shape s-square" aria-hidden="true"></i>Yeni iller</h2>
       <span class="count" id="secimSayisi"></span>
     </div>
+    <div class="regions go" id="bolgeSerit" role="button" tabindex="0" title="Bölgesel denge ayarlarına git" aria-label="Yeni illerin bölgelere dağılımı. Bölgesel denge ayarlarına gitmek için seç"></div>
     <ol class="plates" id="liste"></ol>
     <p class="rail-note">Kareler: 1000 rastgele ağırlık senaryosunun kaçında seçildiği (her kare %10).</p>
   </aside>
@@ -103,6 +114,7 @@
     <li><b>Hinterland.</b> Bir aday il olursa, kendisine eski il merkezinden daha kısa sürede ulaşılan ilçeler ona bağlanır. Yeni il en az 150 bin kişiyi kapsamalı, geride kalan il 250 binin altına düşmemeli.</li>
     <li><b>Puan.</b> Yeni ilin toplam nüfusu, ilçenin kendi nüfusu, il merkezine sürüş süresi ve SEGE-2022 gelişmişlik skoru 0–1 arasına ölçeklenip ağırlıklarla toplanır.</li>
     <li><b>Seçim.</b> Her turda koşulları sağlayan en yüksek puanlı aday il olur, ilçeler en yakın merkeze yeniden dağıtılır. 19 il seçilene kadar sürer.</li>
+    <li><b>Bölgesel denge (isteğe bağlı).</b> Varsayılan model 19 ili ülke genelinde tek bir puan sıralamasıyla seçer. Nüfusu kalabalık ve hızlı büyüyen ilçeler batıda toplandığı için seçilenlerin çoğu Marmara, Ege ve Akdeniz'den çıkar. "Her ilden en fazla 1 yeni il" açıkken aynı ilden ikinci yeni il çıkamaz. "Her bölgeden en az" seçilince önce 7 coğrafi bölgenin her birinden en yüksek puanlı uygun aday alınır, kalan iller yine puan sırasıyla seçilir. Bir bölgede koşulları sağlayan aday yoksa kota boş kalır.</li>
     <li><b>Yeni il merkezi.</b> İl olan ilçenin belediye binası, yeni ilin merkezi olarak gösterilir (kırmızı göbekli halka). Konum önce OpenStreetMap'teki belediye binasından alınır; ana bina yoksa merkeze 3 km'den yakın ek hizmet binası kullanılır. OSM'de kaydı olmayan belediyelerde belediyenin resmî sitesindeki harita ya da adres kullanılır. Hiçbiri yoksa ilçe merkezi gösterilir (göbeksiz halka).</li>
   </ol>
   <p class="note">Model ilçeleri yalnızca kendi ili içinde dağıtır, il sınırı aşan birleşmeleri (ör. komşu ilden ilçe alma) değerlendirmez. Yol süreleri trafiksiz OSRM tahminidir. Bölgesel denge, güvenlik, tarih ve kimlik gibi ölçütler veriye girmez.</p>

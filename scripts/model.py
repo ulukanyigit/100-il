@@ -13,6 +13,8 @@ Mantık
 3. Puan: hinterland nüfusu, kendi nüfusu, il merkezine uzaklık, SEGE-2022 — ağırlıklı, 0–100.
 4. Seçim: her turda, eklendiğinde tüm koşulları sağlayan en yüksek puanlı aday yeni il olur; ilçeler yeniden
    dağıtılır. Koşullar: yeni il ≥ min_hinter, geride kalan il ≥ min_parent, önceki yeni iller ≥ min_hinter.
+5. İsteğe bağlı denge kuralları (varsayılan kapalı): il_max = bir ilden en fazla kaç yeni il çıkabileceği;
+   kota = önce her coğrafi bölgeden en az kaç yeni il seçileceği (kalan koltuklar puan sırasıyla).
 """
 import math
 import pandas as pd
@@ -21,6 +23,7 @@ DEFAULTS = dict(
     w_hinter=35, w_own=20, w_dist=25, w_sege=20,
     core_km=30, chain_density=500, chain_link=20,
     min_own=40_000, min_hinter=150_000, min_parent=250_000,
+    il_max=0, kota=0,  # il_max: bir ilden en fazla kaç yeni il (0 = sınırsız); kota: her bölgeden en az kaç yeni il
     n_new=19,
 )
 
@@ -31,6 +34,12 @@ PRESS_LIST = [("Antalya", "Alanya"), ("Antalya", "Manavgat"), ("Balıkesir", "Ba
               ("Hatay", "İskenderun"), ("Ordu", "Ünye"), ("Kahramanmaraş", "Elbistan"),
               ("Şanlıurfa", "Siverek"), ("Adıyaman", "Kâhta"), ("Diyarbakır", "Ergani"),
               ("Mardin", "Midyat"), ("Şırnak", "Cizre"), ("Van", "Erciş"), ("Hakkâri", "Yüksekova")]
+
+
+# coğrafi bölgeler (ilce_tablo.csv 'bolge' kodu → ad); sıra web sürümüyle aynı
+BOLGE_AD = {"MB": "Marmara", "EB": "Ege", "AB": "Akdeniz", "İAB": "İç Anadolu", "KB": "Karadeniz",
+            "DAB": "Doğu Anadolu", "GAB": "Güneydoğu Anadolu"}
+BOLGELER = list(BOLGE_AD.values())
 
 
 def lin(x, a, b):
@@ -60,6 +69,7 @@ class Model:
         self.core = core
         self.by_il = {il: list(g.index) for il, g in t.groupby("il")}
         self.pop = t.nufus2025.to_dict()
+        self.bolge = {i: BOLGELER.index(BOLGE_AD[b]) for i, b in t.bolge.items()} if "bolge" in t else {i: 0 for i in t.index}
 
     def t_to(self, j, center):
         """center: None = mevcut il merkezi, int = yeni il merkezi ilçe id"""
@@ -110,6 +120,8 @@ class Model:
             reason.append("geride kalan il çok küçülüyor")
         if not others_ok:
             reason.append("komşu yeni ili eşiğin altına düşürüyor")
+        if self.p["il_max"] > 0 and len(centers) - 1 >= self.p["il_max"]:
+            reason.append("ilinden zaten yeni il çıktı")
         t = self.t
         rec = dict(id=c, il=il, ilce=t.at[c, "ilce"], nufus=int(self.pop[c]),
                    il_merkez_dk=t.at[c, "il_merkez_dk"], sege=t.at[c, "sege_skor"],
@@ -125,14 +137,28 @@ class Model:
         cands = [i for i in t.index if not self.core[i] and self.pop[i] >= p["min_own"]]
         first = pd.DataFrame([self.try_add(c, [])[0] for c in cands]).sort_values("puan", ascending=False)
         chosen, recs = [], []
-        while len(chosen) < p["n_new"]:
+
+        def pick(pool):
             best = None
-            for c in cands:
+            for c in pool:
                 if c in chosen:
                     continue
                 r, a = self.try_add(c, chosen)
                 if r["uygun"] and (best is None or r["puan"] > best[0]["puan"]):
                     best = (r, a)
+            return best
+
+        # bölge kotası: önce her bölgeden en iyi uygun aday (tur tur), sonra kalan koltuklar puan sırasıyla
+        for _ in range(p["kota"]):
+            for b in range(len(BOLGELER)):
+                if len(chosen) >= p["n_new"]:
+                    break
+                best = pick([c for c in cands if self.bolge[c] == b])
+                if best:
+                    chosen.append(best[0]["id"])
+                    recs.append(best[0])
+        while len(chosen) < p["n_new"]:
+            best = pick(cands)
             if best is None:
                 break
             chosen.append(best[0]["id"])

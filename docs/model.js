@@ -4,6 +4,7 @@
     w_hinter: 35, w_own: 20, w_dist: 25, w_sege: 20,
     core_km: 30, chain_density: 500, chain_link: 20,
     min_own: 40000, min_hinter: 150000, min_parent: 250000,
+    il_max: 0, kota: 0, // il_max: bir ilden en fazla kaç yeni il (0 = sınırsız); kota: her bölgeden en az kaç yeni il
     n_new: 19,
   };
 
@@ -25,6 +26,8 @@
       I.segeSira[id] = r[F.sege_sira]; I.alan[id] = r[F.alan]; I.lat[id] = r[F.lat]; I.lon[id] = r[F.lon];
       I.basin[id] = r[F.basin];
     }
+    I.bolge = new Int8Array(n);
+    for (let id = 0; id < n; id++) I.bolge[id] = veri.il_bolge ? veri.il_bolge[I.il[id]] : 0;
     const byIl = veri.iller.map(() => []);
     const dk = new Map(); // key a*1000+b
     for (const [ilIdx, m] of Object.entries(veri.matris)) {
@@ -33,7 +36,7 @@
         if (a !== b) dk.set(a * 1000 + b, m.dk[i][j] == null ? 1e9 : m.dk[i][j]);
       }));
     }
-    return { n, I, byIl, dk, iller: veri.iller };
+    return { n, I, byIl, dk, iller: veri.iller, bolgeler: veri.bolgeler || [] };
   }
 
   function run(D, opts) {
@@ -96,6 +99,7 @@
       if (hpop < p.min_hinter) reasons.push("yeni il nüfusu yetersiz");
       if (parent < p.min_parent) reasons.push("geride kalan il çok küçülüyor");
       if (!othersOk) reasons.push("komşu yeni ili eşiğin altına düşürüyor");
+      if (p.il_max > 0 && centers.length - 1 >= p.il_max) reasons.push("ilinden zaten yeni il çıktı");
       return { id: c, il, hpop, parent, members: grp.get(c), ok: reasons.length === 0, reasons, puan: Math.round(s * 10) / 10, comp };
     }
 
@@ -104,14 +108,26 @@
     const first = cands.map((c) => tryAdd(c, [])).sort((a, b) => b.puan - a.puan);
     const firstById = new Map(first.map((r, k) => [r.id, Object.assign(r, { rank: k + 1 })]));
 
-    const chosen = [], steps = [];
-    while (chosen.length < p.n_new) {
+    const chosen = [], steps = [], byKota = new Set();
+    const pick = (pool) => {
       let best = null;
-      for (const c of cands) {
+      for (const c of pool) {
         if (chosen.includes(c)) continue;
         const r = tryAdd(c, chosen);
         if (r.ok && (best === null || r.puan > best.puan)) best = r;
       }
+      return best;
+    };
+    // bölge kotası: önce her bölgeden en iyi uygun aday (tur tur), sonra kalan koltuklar puan sırasıyla
+    const nB = D.bolgeler.length;
+    for (let q = 0; q < p.kota && chosen.length < p.n_new; q++) {
+      for (let b = 0; b < nB && chosen.length < p.n_new; b++) {
+        const best = pick(cands.filter((c) => I.bolge[c] === b));
+        if (best) { chosen.push(best.id); steps.push(best); byKota.add(best.id); }
+      }
+    }
+    while (chosen.length < p.n_new) {
+      const best = pick(cands);
       if (!best) break;
       chosen.push(best.id); steps.push(best);
     }
@@ -130,7 +146,7 @@
       const { s, comp } = score(c, hpop);
       return { sira: k + 1, id: c, il: I.il[c], hpop, members, parent, puan: Math.round(s * 10) / 10, comp };
     });
-    return { p, core, final, sel, first, firstById, cands };
+    return { p, core, final, sel, first, firstById, cands, byKota };
   }
 
   const api = { DEFAULTS, prepare, run };

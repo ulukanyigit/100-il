@@ -4,7 +4,7 @@ import pandas as pd
 import geopandas as gpd
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # model.py aynı klasörde
-from model import PRESS_LIST
+from model import PRESS_LIST, BOLGE_AD, BOLGELER
 
 t = pd.read_csv("ilce_tablo.csv").sort_values("id")
 m = pd.read_csv("il_ici_matris.csv")
@@ -32,6 +32,8 @@ bel = pd.read_csv("belediye_eslesme.csv").set_index("id").reindex(t.id)
 belediye = [[round(float(r.bel_lat), 6), round(float(r.bel_lon), 6), (r.bel_ad if isinstance(r.bel_ad, str) else None),
              (r.bel_kaynak if isinstance(r.bel_kaynak, str) else None), TUR[r.bel_tur], KAYNAK[r.bel_tur]]
             for r in bel.itertuples()]
+ib = t.groupby("il").bolge.first()
+il_bolge = [BOLGELER.index(BOLGE_AD[ib[il]]) for il in il_list]
 mc = pd.read_csv("il_merkezleri.csv").set_index("il")
 il_merkez = [[round(float(mc.at[il, "merkez_lat"]), 5), round(float(mc.at[il, "merkez_lon"]), 5)] for il in il_list]
 out = {"meta": {"olusturma": "2026-11-02", "nufus": "TÜİK ADNKS 2025", "sege": "SEGE-2022", "yol": "OSRM (trafiksiz)"},
@@ -39,7 +41,8 @@ out = {"meta": {"olusturma": "2026-11-02", "nufus": "TÜİK ADNKS 2025", "sege":
        "alanlar": ["id", "il", "ilce", "nufus", "merkez_dk", "merkez_km", "sege", "sege_sira", "alan", "lat", "lon", "basin"],
        "ilceler": ilce, "matris": mat,
        "belediye_alanlar": ["lat", "lon", "ad", "kaynak_url", "kesinlik(1=bina, 2=yaklaşık, 0=yok: ilçe merkezi)", "kaynak_turu"],
-       "belediye": belediye, "il_merkez": il_merkez}
+       "belediye": belediye, "il_merkez": il_merkez,
+       "bolgeler": BOLGELER, "il_bolge": il_bolge}
 open("../../docs/data/veri.json", "w", encoding="utf-8").write(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
 
 

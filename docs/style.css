@@ -87,6 +87,32 @@ input[type=range]:focus-visible { outline: 3px solid var(--focus); outline-offse
 .rules summary { cursor: pointer; font-weight: 700; padding: 9px 0; text-transform: uppercase; font-size: .88rem; min-height: 40px; display: flex; align-items: center; }
 .rules[open] { padding-bottom: 10px; }
 
+/* ---------- bölgesel denge ---------- */
+.balance { margin: 14px 0 0; padding: 4px 12px 12px; border: var(--bw) solid var(--rule); min-width: 0; }
+.balance legend { font-weight: 900; text-transform: uppercase; font-size: .88rem; padding: 0 6px; margin-left: -6px; }
+.sw-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 500; font-size: .9rem; min-height: 40px; cursor: pointer; }
+.sw-row input { -webkit-appearance: none; appearance: none; flex: none; position: relative; width: 46px; height: 26px; margin: 0; background: var(--surface); border: var(--bw) solid var(--rule); box-shadow: var(--shadow-sm); cursor: pointer; }
+.sw-row input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: var(--rule); transition: transform .15s ease; }
+.sw-row input:checked { background: var(--red); }
+.sw-row input:checked::after { transform: translateX(20px); background: #fff; outline: var(--bw) solid #121212; }
+.seg-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 500; font-size: .9rem; margin-top: 6px; flex-wrap: wrap; }
+.seg { display: inline-flex; border: var(--bw) solid var(--rule); box-shadow: var(--shadow-sm); }
+.seg button { font: 700 .84rem var(--font); color: var(--fg); background: var(--surface); border: 0; border-right: var(--bw) solid var(--rule); min-height: 34px; min-width: 44px; padding: 4px 10px; cursor: pointer; }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-checked="true"] { background: var(--blue); color: #fff; }
+.seg button:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+.regions { display: grid; grid-template-columns: repeat(7, 1fr); border-bottom: var(--bw) solid var(--rule); }
+.regions span { display: flex; flex-direction: column; align-items: center; padding: 6px 0 5px; border-right: 1px solid var(--ilce-line); line-height: 1; }
+.regions span:last-child { border-right: 0; }
+.regions b { font-weight: 900; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.regions small { font-size: .62rem; font-weight: 700; letter-spacing: .04em; margin-top: 3px; color: var(--muted); }
+.regions span.z b { color: var(--muted); opacity: .55; }
+.regions span.hi { background: color-mix(in srgb, var(--red) 14%, var(--surface)); }
+.f-ctrl .regions { display: none; }
+.regions.go { cursor: pointer; }
+.regions.go:hover span { background: color-mix(in srgb, var(--yellow) 30%, var(--surface)); }
+.regions.go:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+
 /* ---------- plaka ---------- */
 .plate { display: inline-flex; align-items: stretch; background: #fff; color: #121212; border: var(--bw) solid #121212; box-shadow: 2px 2px 0 0 #121212; font-family: var(--font); line-height: 1; font-weight: 900; }
 .plate-tr { background: var(--blue); color: #fff; font-size: .5em; font-weight: 700; display: flex; align-items: flex-end; justify-content: center; padding: 0 .3em .3em; min-width: 1.3em; }
@@ -217,7 +243,10 @@ input[type=range]:focus-visible { outline: 3px solid var(--focus); outline-offse
 
   /* plaka şeridi: her zaman görünür, yatay kayar */
   .f-rail { top: auto; left: 0; right: 0; bottom: calc(var(--tab-h) + env(safe-area-inset-bottom)); width: auto; height: var(--rail-h); padding: 0; flex-direction: row; box-shadow: none; border-width: var(--bw) 0 0 0; }
-  .rail-head, .rail-note { display: none; }
+  .rail-head, .rail-note, .f-rail .regions { display: none; }
+  .f-ctrl .regions { display: grid; margin-top: 10px; border: var(--bw) solid var(--rule); }
+  .seg button { min-height: 44px; }
+  .sw-row { min-height: 48px; }
   .plates { display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; gap: 0; -webkit-overflow-scrolling: touch; }
   .plates li { border-bottom: 0; border-right: 1px solid var(--ilce-line); flex: none; scroll-snap-align: start; }
   .plates button { min-height: var(--rail-h); padding: 6px 12px; grid-template-columns: auto auto; gap: 2px 8px; }

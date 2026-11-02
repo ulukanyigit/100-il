@@ -81,6 +81,37 @@
     show();
     return d;
   }
+  // bölgesel denge
+  const ilMaxEl = $("#ilMax"), kotaEl = $("#kota");
+  ilMaxEl.addEventListener("change", () => { state.il_max = ilMaxEl.checked ? 1 : 0; schedule(); });
+  kotaEl.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { state.kota = +b.dataset.k; schedule(); }));
+  kotaEl.addEventListener("keydown", (e) => {
+    const d = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+    if (!d) return; e.preventDefault();
+    state.kota = (state.kota + d + 3) % 3; schedule();
+    requestAnimationFrame(() => kotaEl.querySelector(`[data-k="${state.kota}"]`).focus());
+  });
+  function syncBalance() {
+    ilMaxEl.checked = !!state.il_max;
+    kotaEl.querySelectorAll("button").forEach((b) => { const on = +b.dataset.k === state.kota; b.setAttribute("aria-checked", on); b.tabIndex = on ? 0 : -1; });
+  }
+  const goBalance = () => {
+    const ctl = $("#ayarlar");
+    if (isMobile()) setSheet(true);
+    else if (ctl.classList.contains("collapsed")) $("#ctrlToggle").click();
+    ctl.querySelector(".balance").scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" });
+    ilMaxEl.focus({ preventScroll: true });
+  };
+  $("#bolgeSerit").addEventListener("click", goBalance);
+  $("#bolgeSerit").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goBalance(); } });
+  const BOLGE_KISA = ["MAR", "EGE", "AKD", "İÇA", "KAR", "DOĞ", "GDA"];
+  function renderRegions() {
+    const cnt = (D.bolgeler || []).map(() => 0);
+    res.sel.forEach((x) => cnt[I.bolge[x.id]]++);
+    const mx = Math.max(...cnt);
+    const html = cnt.map((n, b) => `<span class="${n === 0 ? "z" : n === mx ? "hi" : ""}" title="${D.bolgeler[b]}: ${n} yeni il"><b>${n}</b><small>${BOLGE_KISA[b] || ""}</small></span>`).join("");
+    document.querySelectorAll(".regions").forEach((el) => { el.innerHTML = html; });
+  }
   function syncChips() {
     chips.querySelectorAll(".chip").forEach((b, i) => {
       const on = SEN[i].w.every((v, j) => state[W[j].k] === v);
@@ -90,11 +121,12 @@
   function readHash() {
     const h = new URLSearchParams(location.hash.slice(1));
     if (h.get("w")) h.get("w").split(",").map(Number).forEach((v, i) => { if (!isNaN(v)) state[["w_hinter", "w_own", "w_dist", "w_sege"][i]] = v; });
-    if (h.get("k")) h.get("k").split(",").map(Number).forEach((v, i) => { if (!isNaN(v)) state[["core_km", "min_hinter", "min_parent"][i]] = v; });
+    if (h.get("k")) h.get("k").split(",").map(Number).forEach((v, i) => { if (!isNaN(v) && i < 5) state[["core_km", "min_hinter", "min_parent", "il_max", "kota"][i]] = v; });
+    state.il_max = state.il_max ? 1 : 0; state.kota = Math.max(0, Math.min(2, Math.round(state.kota || 0)));
   }
   function writeHash() {
     const w = [state.w_hinter, state.w_own, state.w_dist, state.w_sege].join(",");
-    const k = [state.core_km, state.min_hinter, state.min_parent].join(",");
+    const k = [state.core_km, state.min_hinter, state.min_parent].concat(state.il_max || state.kota ? [state.il_max, state.kota] : []).join(",");
     history.replaceState(null, "", `#w=${w}&k=${k}`);
   }
 
@@ -194,7 +226,7 @@
     res = IlModel.run(D, state);
     const names = res.sel.map((s) => s.id).sort((a, b) => collator.compare(I.ad[a], I.ad[b]));
     plateOf = new Map(names.map((id, k) => [id, 82 + k]));
-    syncChips(); writeHash();
+    syncChips(); syncBalance(); writeHash();
   }
 
   function draw(upto) {
@@ -247,6 +279,7 @@
 
   // ---------- liste ----------
   function renderList() {
+    renderRegions();
     const ol = $("#liste"); ol.innerHTML = "";
     const order = res.sel.slice().sort((a, b) => plateOf.get(a.id) - plateOf.get(b.id));
     $("#secimSayisi").textContent = res.sel.length < state.n_new ? `${res.sel.length}/19` : "19";
@@ -278,6 +311,8 @@
       const parts = f.reasons.map((r) => r === "geride kalan il çok küçülüyor" ? `il olsaydı ${ilAdi(j)} ${fmtK(f.parent)} nüfusa düşerdi (eşik ${fmtK(state.min_parent)})` : r === "yeni il nüfusu yetersiz" ? `yeni il yalnızca ${fmtK(f.hpop)} kişi olurdu (eşik ${fmtK(state.min_hinter)})` : r);
       return parts.join("; ");
     }
+    const sameIl = res.sel.filter((x) => I.il[x.id] === I.il[j]).map((x) => I.ad[x.id]);
+    if (state.il_max && sameIl.length) return `${ilAdi(j)} ilinden ${sameIl.join(", ")} zaten il oldu (her ilden en fazla 1 kuralı)`;
     return `puan sıralamasında ${f.rank}. (${f.puan.toLocaleString("tr-TR")} puan)`;
   }
   function renderCompare() {
@@ -310,7 +345,7 @@
       const s = isNew, r = Math.round((sag.oran[j] || 0) * 100);
       const others = s.members.filter((m) => m !== j).map((m) => I.ad[m]).sort(collator.compare);
       html += `<span class="plate plate-sm"><span class="plate-tr">TR</span><span class="plate-num">${plateOf.get(j)}</span></span>
-        <h3>${I.ad[j]}</h3><p class="from">${ilAdi(j)} ilinden ayrılır${I.basin[j] ? ", basın listesinde de var" : ""}</p>
+        <h3>${I.ad[j]}</h3><p class="from">${ilAdi(j)} ilinden ayrılır${I.basin[j] ? ", basın listesinde de var" : ""}${res.byKota.has(j) ? `. ${D.bolgeler[I.bolge[j]]} bölge kotasıyla seçildi` : ""}</p>
         <dl>
           <dt>Yeni ilin nüfusu</dt><dd>${fmt.format(s.hpop)}</dd>
           <dt>${I.ad[j]} ilçesinin nüfusu</dt><dd>${fmt.format(I.pop[j])}</dd>
