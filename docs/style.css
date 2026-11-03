@@ -200,6 +200,7 @@ input[type=range]:focus-visible { outline: 3px solid var(--focus); outline-offse
 .steps li::before { content: counter(s); position: absolute; left: 0; top: -2px; width: 30px; height: 30px; border-radius: 50%; background: var(--red); color: #fff; border: var(--bw) solid var(--rule); display: grid; place-items: center; font-weight: 900; font-size: .95rem; }
 .sources { padding-left: 1.1em; font-size: .88rem; color: var(--muted); margin: 0; }
 .sign { font-size: .88rem; }
+.dlg code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .92em; background: color-mix(in srgb, var(--fg) 8%, transparent); padding: 0 .3em; }
 
 /* ---------- harita işaretleri ---------- */
 .mk { cursor: pointer; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; }

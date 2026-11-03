@@ -127,7 +127,9 @@
     <li>Belediye binaları ve mevcut il merkezleri: OpenStreetMap, Wikidata, belediyelerin resmî siteleri (*.bel.tr)</li>
   </ul>
   <h3>Veri kontrolleri</h3>
-  <p class="note">973 ilçe merkezinin her biri kendi ilçe poligonunun içinde. Kaynak tabloda hatalı olan 10 koordinat (Yüksekova, Defne, Çaldıran gibi) düzeltildi. Yol tablosunda yoldan 2 km'den uzağa oturan noktalar ve fiziksel olarak imkânsız çiftler tek tek rota sorgusuyla yeniden hesaplandı. Toplam nüfus TÜİK'in açıkladığı 86.092.168 ile 9 kişi farkla örtüşüyor.</p>
+  <p class="note">973 ilçe merkezinin her biri kendi ilçe poligonunun içinde. Kaynak tabloda hatalı olan 10 koordinat (Yüksekova, Defne, Çaldıran gibi) düzeltildi. Yol tablosunda yoldan 2 km'den uzağa oturan noktalar ve fiziksel olarak imkânsız çiftler tek tek rota sorgusuyla yeniden hesaplandı. Toplam nüfus TÜİK'in açıkladığı 86.092.168 ile 9 kişi farkla örtüşüyor. Bu kontroller PostGIS'te SQL sorgularıyla da tekrarlanıyor (<code>sql/02_kontroller.sql</code>).</p>
+  <h3>Teknik yapı</h3>
+  <p class="note">Veriler PostgreSQL 13 + PostGIS 3.5 üzerinde bir şemada tutulur. Kent çekirdeği özyinelemeli SQL sorgusuyla (<code>WITH RECURSIVE</code>), seçim modeli PL/pgSQL fonksiyonuyla, 100 ilin sınırları <code>ST_Union</code> ile hesaplanır. Aynı model Python'da ve bu sayfada çalışan JavaScript'te de var; üçü aynı ayarlarla aynı 19 ili seçer (6 farklı ayarda test edildi). Alanlar ülke ölçeğinde elipsoit üzerinde, ilçe ölçeğinde ilçenin kendi 3° TM diliminde (TUREF/TM27–TM45) hesaplanır. Veri hazırlama: Python (GeoPandas) ve PyQGIS. Harita: MapLibre GL. Kaynak kod: <a href="https://github.com/ulukanyigit/100-il" target="_blank" rel="noopener">github.com/ulukanyigit/100-il</a></p>
 </dialog>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
