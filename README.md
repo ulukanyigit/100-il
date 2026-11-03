@@ -58,6 +58,28 @@
 | Koordinat düzeltmeleri | Tablodaki 10 hatalı ilçe merkezi (Çamlıyayla, Adilcevaz, Çaldıran, Selendi, Kale, Kartepe, Defne, Yüksekova, Bağcılar, Gerede) elle düzeltildi; 973 merkezin tamamı kendi poligonunda |
 | Basın listesi | gzt.com, 2 Kasım 2026 |
 
+## Teknik yapı
+
+| Katman | Araç |
+|---|---|
+| Veri hazırlama | Python (pandas, GeoPandas, Shapely), PyQGIS |
+| Mekânsal veritabanı | PostgreSQL 13 + PostGIS 3.5 (`yuz_il` şeması) |
+| Yol süreleri | OSRM (OpenStreetMap), doğrulamalı yeniden hesap |
+| Model | Üç eş uygulama: Python (`scripts/model.py`), PL/pgSQL (`sql/04_model.sql`), JavaScript (`docs/model.js`, tarayıcıda) |
+| Web | MapLibre GL, TopoJSON, GitHub Pages |
+| Sağlamlık | 1000 senaryoluk Monte Carlo (Node) |
+
+### PostGIS
+
+`scripts/10_postgis_yukle.py` QGIS'te kayıtlı PostgreSQL bağlantısıyla `yuz_il` şemasını kurar ve 973 ilçe poligonunu, 13.980 il içi yol süresini, il merkezlerini, belediye binalarını ve 2.607 OSM belediye kaydını yükler (yaklaşık 1 sn).
+
+- `sql/02_kontroller.sql`: Veri kontrolleri. Her ilçe merkezi kendi poligonunda mı (`ST_Covers`, 0 hata), toplam nüfus (TÜİK'le 9 kişi fark), yol matrisinin fiziksel tutarlılığı (kuş uçuşundan kısa yol: 0), belediye noktalarının ilçeye uzaklığı, il merkezlerinin kendi ilinde olup olmadığı. OSM eşleştirmesinde GiST indeksiyle kutu ön elemesi (`&&`) ve ardından elipsoit üzerinde kesin mesafe (`ST_DWithin` geography) kullanılır.
+- Alan hesabı ülke ölçeğinde elipsoit (geography), ilçe ölçeğinde ilçenin kendi 3° TM diliminde (TUREF/TM27–TM45, EPSG:5253–5259) yapılır. İki yöntem arasındaki fark medyanda %0,009, en fazla %0,05. Tüm ülke tek dilimde (TM30) hesaplansaydı 45° boylamındaki ilçelerin alanı %4 büyük çıkardı.
+- `sql/03_cekirdek.sql`: Kent çekirdeği `WITH RECURSIVE` ile. İl merkezine 30 km'den yakın ilçelere, çekirdeğe 20 dakikadan yakın ve km²'de 500 kişiden yoğun ilçeler zincirle eklenir (Pendik, Esenyurt, Tuzla, Narlıdere…).
+- `sql/04_model.sql`: Seçim modeli PL/pgSQL fonksiyonu olarak. `SELECT * FROM yuz_il.calistir();` ya da `yuz_il.calistir(il_max => 1, kota => 2)`. Sonuçlar `yuz_il.secim`, `yuz_il.atama`, `yuz_il.adaylar` tablolarına yazılır; bir çalıştırma 1,5–3 sn sürer.
+- `sql/05_iller_100.sql`: 100 ilin sınırları (`ST_Union`), yeni il merkezleri (belediye binası, plaka 82–100) ve QGIS için `v_ilce_sonuc` görünümü.
+- `scripts/11_sql_test.py`: PL/pgSQL modelini Python modeliyle 6 ayarda (varsayılan, il başı sınır, bölge kotası, düşük eşik, erişim ağırlıklı, dar çekirdek) karşılaştırır. Altısında da 19 ilin sırası, nüfusları ve puanları birebir aynı.
+
 ## Klasör yapısı
 
 ```
@@ -71,11 +93,14 @@ scripts/06_osrm_dogrulamali.py doğrulamalı OSRM: snap > 2 km ve imkânsız çi
 scripts/05_web_veri.py       web veri paketi ve sonuç katmanları
 scripts/model.py             referans model (Python) → adaylar.csv, secim.csv, atama.csv
 scripts/mc.js                1000 senaryoluk sağlamlık analizi (Node)
+scripts/10_postgis_yukle.py   PostGIS şeması + veri yükleme (QGIS konsolu)
+scripts/11_sql_test.py       PL/pgSQL modeli ile Python modelini karşılaştırır
+sql/                         01 şema · 02 veri kontrolleri · 03 kent çekirdeği · 04 seçim modeli · 05 100 il
 data/processed/              ilceler.gpkg, iller_100.gpkg, tablolar
-web/                         statik site (MapLibre GL + TopoJSON); model.js Python modeliyle birebir aynı sonucu verir
+docs/                        statik site (GitHub Pages) (MapLibre GL + TopoJSON); model.js Python modeliyle birebir aynı sonucu verir
 100il.qgz                    QGIS projesi
 ```
 
-Web sürümünü yerelde açmak için: `cd web && python -m http.server` ve tarayıcıda `localhost:8000`.
+Web sürümünü yerelde açmak için: `cd docs && python -m http.server` ve tarayıcıda `localhost:8000`.
 
 Hazırlayan: Hamza Yiğit Ulukan, Harita Mühendisi
